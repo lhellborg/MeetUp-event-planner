@@ -1,0 +1,170 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>project1</title>
+
+      <!-- build from yeoman web apps template-->
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+     <!-- Using Polymer: Load webcomponents-lite.min.js for polyfill support. -->
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+
+    <!-- Using Polymer components in the bower_components file. Use an HTML Import to bring in some elements. -->
+    <link rel="import" href="bower_components/paper-button/paper-button.html">
+    <link rel="import" href="bower_components/paper-input/paper-input.html">
+    <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
+    <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+    <link rel="import" href="bower_components/paper-menu/paper-menu.html">
+    <link rel="import" href="bower_components/paper-progress/paper-progress.html">
+    <link rel="import" href="bower_components/paper-radio-button/paper-radio-button.html">
+    <link rel="import" href="bower_components/paper-radio-group/paper-radio-group.html">
+    <link rel="import" href="bower_components/paper-toggle-button/paper-toggle-button.html">
+    <link rel="import" href="bower_components/gold-email-input/gold-email-input.html">
+    <link rel="import" href="bower_components/google-calendar/google-calendar.html">
+    <link rel="import" href="bower_components/google-map/google-map.html">
+    <link rel="import" href="bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
+    <link rel="import" href="bower_components/iron-form/iron-form.html">
+    <link rel="import" href="bower_components/iron-form-element-behavior/iron-form-element-behavior.html">
+    <link rel="import" href="bower_components/iron-list/iron-list.html">
+    <link rel="import" href="bower_components/iron-localstorage/iron-localstorage.html">
+    <link rel="import" href="bower_components/iron-validatable-behavior/iron-validatable-behavior.html">
+    <link rel="import" href="bower_components/iron-validator-behavior/iron-validator-behavior.html">
+    <link rel="import" href="bower_components/paper-autocomplete/paper-autocomplete.html">
+
+
+
+
+
+
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="/bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+  </head>
+  <body>
+    <!--[if lt IE 10]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div class="container">
+      <div class="header">
+        <h3 class="text-muted">Meet-Up Event Planner</h3>
+      </div>
+
+      <div class="jumbotron">
+        <h1>Hi Mate.</h1>
+        <p class="lead">What do you want to do?</p>
+          <paper-radio-group selected="newAccount" allow-empty-selection>
+            <paper-radio-button name="newAccount">Create account</paper-radio-button>
+            <paper-radio-button name="createEvent">Create event</paper-radio-button>
+            <paper-radio-button name="showEvent" id="showEvent">Show event</paper-radio-button>
+          </paper-radio-group>
+      </div>
+
+      <div class="row marketing createAccount">
+        <div class="col-lg-6">
+          <h4>Create account</h4>
+          <!-- name input -->
+
+          <paper-input label="Your full name, please" required auto-validate autocomplete="on" error-message="Name please!" id="fullName"></paper-input>
+
+          <!-- email input -->
+          <gold-email-input required="" auto-validate="" error-message="Please enter a valid email" label="Your email adress, please" tabindex="0" aria-disabled="false">
+          </gold-email-input>
+
+          <!-- password input -->
+          <paper-input label="Password, please" required auto-validate type="password" error-message="we need a password here!"></paper-input>
+
+          <!-- optional input -->
+          <h6>Optional fields</h6>
+          <paper-input label ="job-title"></paper-input>
+          <paper-input label ="birthday" type="date"></paper-input>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="row marketing createEvent">
+        <h4>Create Event</h4>
+        <!-- event name -->
+        <paper-input label="What do you want to call the event?" required auto-validate autocomplete="on" error-message="Name of the event, please"  id="eventName"></paper-input>
+        <!-- event type -->
+        <paper-autocomplete label="What kind of event? Wedding..."  required error-message="Event type?" id="input-local"></paper-autocomplete>
+        <!-- event host -->
+        <paper-input label="Who is hosting the event?" required auto-validate autocomplete="on" error-message="host for the event?" id="hostName"></paper-input>
+        <!-- event start -->
+        <paper-input label ="start date and time" required auto-validate type="datetime-local" error-message="When does it start?" id="start"></paper-input>
+        <!-- event end -->
+        <paper-input label ="end date and time" required auto-validate type="datetime-local" error-message="When does it end?" id="end"></paper-input>
+        <!-- event guests -->
+        <paper-input label="Who do you want to invite?" required auto-validate autocomplete="on" error-message="Guests?" id="guestList"></paper-input>
+        <!-- event adress -->
+        <paper-input id="address" label="Address" onFocus="geolocate()" required auto-validate autocomplete="on" error-message="Where is it?" id="place"></paper-input>
+        <!-- event mesasge -->
+        <paper-input label="Additional information to the guests?" id="addInfo"></paper-input>
+
+        <hr>
+
+      </div class="row marketing showEvent">
+        <h4>Show Event</h4>
+        <div id="events">
+          <h4 id="evName"></h4>
+          <p id="event"></p>
+        </div>
+      <div>
+
+      </div>
+
+      <div class="footer">
+        <p> ♥</p>
+      </div>
+    </div>
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+     <script>
+    //   (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    //   function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    //   e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    //   e.src='https://www.google-analytics.com/analytics.js';
+    //   r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    //   ga('create','UA-XXXXX-X');ga('send','pageview');
+    // </script>
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js scripts/plugins.js -->
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/modal.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/button.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/popover.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/carousel.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js scripts/main.js -->
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+  </body>
+</html>
