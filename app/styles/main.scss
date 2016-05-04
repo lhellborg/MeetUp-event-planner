@@ -35,8 +35,13 @@ body {
     margin-top: 0;
     margin-bottom: 0;
     line-height: 40px;
-    padding-bottom: 19px;
+    padding-bottom: 10px;
   }
+}
+
+h6 {
+  margin-top: 40px;
+  margin-bottom: 0px;
 }
 
 /* Custom page footer */
@@ -54,6 +59,8 @@ body {
 .jumbotron {
   text-align: center;
   border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 5px;
+  padding-top: 5px;
   .btn {
     font-size: 21px;
     padding: 14px 24px;
@@ -62,7 +69,10 @@ body {
 
 /* Supporting marketing content */
 .marketing {
-  margin: 40px 0;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   p + h4 {
     margin-top: 28px;
   }
