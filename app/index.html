@@ -55,6 +55,54 @@
   </head>
   <body>
 
+    <!--template for account iron-localstorage-->
+    <dom-module id="create-account">
+      <template>
+        <iron-localstorage
+          name="account"
+          value="{{account}}"
+          on-iron-localstorage-load="accountLoaded"
+          on-iron-localstorage-load-empty="initializeAccount"
+          id="locStore">
+        </iron-localstorage>
+
+        <!--first name input-->
+        <paper-input type="text" label="Your first name, please" value="{{account.firstName::change}}" required auto-validate autocomplete="on" autofocus error-message="first name please!" id="firstName" class="accountRequired"></paper-input>
+
+        <!--last name input-->
+        <paper-input type="text" label="Your last name, please" value="{{account.lastName::change}}" required auto-validate autocomplete="on" error-message="last name please!" id="lastName" class="accountRequired"></paper-input>
+
+        <!-- password input -->
+        <form>
+            <paper-input type="password" label="Password" required auto-validate error-message="we need a password here!" class="accountRequired" id="password1"></paper-input>
+            <ul class="helper-text">
+                <li class="length glyphicon"> >8</li>
+                <li class="lowercase glyphicon">a-z</li>
+                <li class="uppercase glyphicon">A-Z</li>
+                <li class="special glyphicon">!?:.()</li>
+            </ul>
+        </form>
+
+        <paper-input type="password" label="Confirm password" required auto-validate error-message="we need a password here!" class="accountRequired" id="password2"></paper-input>
+
+        <!-- email input -->
+        <gold-email-input type="email" required="" auto-validate="" value="{{account.email::change}}" error-message="Please enter a valid email" label="Your email adress, please" tabindex="0" aria-disabled="false" class="accountRequired">
+        </gold-email-input>
+
+        <!-- optional input -->
+        <h6>Optional fields</h6>
+        <paper-input type="text" label ="job-title" value="{{account.jobTitle::change}}"></paper-input>
+        <paper-input type="date" label ="birthday" value="{{account.birthday::change}}"></paper-input>
+
+        <br>
+        <paper-button raised on-click="createAccountBtn" id="createBtn">create account</paper-button>
+        <br>
+        <br>
+        <p id="storageValue" id="userMessage"></p>
+
+      </template>
+    </dom-module>
+
 
     <div class="container">
       <div class="header">
@@ -62,61 +110,45 @@
       </div>
 
       <div class="jumbotron">
-        <h1>Hi Mate.</h1>
+        <h2>Hi <span id="accountName"></span></h2>
         <p class="lead">What do you want to do?</p>
-          <paper-radio-group selected="newAccount" allow-empty-selection>
-            <paper-radio-button name="newAccount" id="newAccount">Create account/login</paper-radio-button>
-            <paper-radio-button name="createEvent" id="newEvent">Create event</paper-radio-button>
-            <paper-radio-button name="showEvent" id="radioShow">Show event</paper-radio-button>
+          <paper-radio-group selected="newAccount">
+            <paper-radio-button name="newAccount" id="newAccount" class="red">Create account</paper-radio-button>
+            <paper-radio-button name="createEvent" id="newEvent" class="red">Create event</paper-radio-button>
+            <paper-radio-button name="showEvent" id="radioShow" class="red">Show event</paper-radio-button>
           </paper-radio-group>
       </div>
 
       <div class="row marketing" id="createAccount">
         <div class="col-lg-6">
-          <!--template for localstorage in create account and login-->
-              <h4>Create account / Login</h4>
-              <!-- name input -->
-              <paper-input label="Your full name, please" required auto-validate autocomplete="on" error-message="Name please!" id="fullName"></paper-input>
 
-              <!-- password input -->
-              <paper-input label="Password, please" required auto-validate type="password" error-message="we need a password here!"></paper-input>
+              <h4>Create account</h4>
 
-              <paper-button raised>login</paper-button>
-
-              <!-- email input -->
-              <gold-email-input required="" auto-validate="" error-message="Please enter a valid email" label="Your email adress, please" tabindex="0" aria-disabled="false">
-              </gold-email-input>
-
-              <!-- optional input -->
-              <h6>Optional fields</h6>
-              <paper-input label ="job-title"></paper-input>
-              <paper-input label ="birthday" type="date"></paper-input>
-
-              <paper-button raised on-click="accountLoaded">create account</paper-button>
+              <create-account></create-account>
 
         </div> <!--end col-lg-6 -->
 
         <hr>
       </div> <!--end createAccount-->
 
-      <div class="row marketing" id="createEvent" style="display:none">
+      <div class="row marketing" id="createEvent">
         <h4>Create Event</h4>
         <!-- event name -->
-        <paper-input label="What do you want to call the event?" required auto-validate autocomplete="on" error-message="Name of the event, please"  id="eventName"></paper-input>
+        <paper-input type="text" label="What do you want to call the event?" required auto-validate autocomplete="on" error-message="Name of the event, please"  id="eventName"></paper-input>
         <!-- event type -->
-        <paper-autocomplete label="What kind of event? Wedding..."  required error-message="Event type?" id="input-local"></paper-autocomplete>
+        <paper-autocomplete type="text" label="What kind of event? Wedding..."  required error-message="Event type?" id="input-local"></paper-autocomplete>
         <!-- event host -->
-        <paper-input label="Who is hosting the event?" required auto-validate autocomplete="on" error-message="host for the event?" id="hostName"></paper-input>
+        <paper-input type="text" label="Who is hosting the event?" required auto-validate autocomplete="on" error-message="host for the event?" id="hostName"></paper-input>
         <!-- event start -->
-        <paper-input label ="start date and time" required auto-validate type="datetime-local" error-message="When does it start?" id="start"></paper-input>
+        <paper-input type="datetime-local" label ="start date and time" required auto-validate error-message="When does it start?" id="start"></paper-input>
         <!-- event end -->
-        <paper-input label ="end date and time" required auto-validate type="datetime-local" error-message="When does it end?" id="end"></paper-input>
+        <paper-input type="datetime-local" label ="end date and time" required auto-validate error-message="When does it end?" id="end"></paper-input>
         <!-- event guests -->
-        <paper-input label="Who do you want to invite?" required auto-validate autocomplete="on" error-message="Guests?" id="guestList"></paper-input>
+        <paper-input type="text" label="Who do you want to invite?" required auto-validate autocomplete="on" error-message="Guests?" id="guestList"></paper-input>
         <!-- event adress -->
-        <paper-input id="address" label="Address" onFocus="geolocate()" required auto-validate autocomplete="on" error-message="Where is it?" id="place"></paper-input>
+        <paper-input type="text" id="address" label="Address" onFocus="geolocate()" required auto-validate autocomplete="on" error-message="Where is it?" id="place"></paper-input>
         <!-- event mesasge -->
-        <paper-input label="Additional information to the guests?" id="addInfo"></paper-input>
+        <paper-input type="text" label="Additional information to the guests?" id="addInfo"></paper-input>
 
         <paper-button raised id="createEventBtn">create event</paper-button>
         <hr>
@@ -131,80 +163,6 @@
       </div>
 
     </div>
-
-<dom-module id="create-account">
-  <template>
-    <iron-localstorage
-      name="account"
-      value="{{account}}"
-      on-iron-localstorage-load="accountLoaded"
-      on-iron-localstorage-load-empty="initializeAccount"
-      id="locStore">
-    </iron-localstorage>
-
-    <!--name input-->
-    <paper-input label="Your full name, please" value="{{account.name::change}}" required auto-validate autocomplete="on" error-message="Name please!" id="fullName"></paper-input>
-
-    <!-- password input -->
-    <paper-input label="Password, please" required auto-validate type="password" error-message="we need a password here!"></paper-input>
-
-    <paper-button raised on-click="accountCheck">login</paper-button>
-
-    <!-- email input -->
-    <gold-email-input required="" auto-validate="" value="{{account.email::change}}" error-message="Please enter a valid email" label="Your email adress, please" tabindex="0" aria-disabled="false">
-    </gold-email-input>
-
-    <!-- optional input -->
-    <h6>Optional fields</h6>
-    <paper-input label ="job-title" value="{{account.jobTitle::change}}"></paper-input>
-    <paper-input label ="birthday" type="date" value="{{account.birthday::change}}"></paper-input>
-
-    <paper-button raised on-click="accountLoaded">create account</paper-button>
-
-    <br>
-    Storage value (JS): <span id="storageValue"></span>
-    <br>
-    <button on-click="accountLoaded">Read storage via JS again</button>
-    <paper-checkbox checked="{{account.hasEars::change}}">Has ears</paper-checkbox>
-  </template>
-</dom-module>
-
-<create-account></create-account>
-
-
-<script>
-Polymer({
-  is: 'create-account',
-  properties: {
-    account: {
-      type: Object,
-      notify: true
-    }
-  },
-  // initializes default if nothing has been stored
-  initializeAccount: function() {
-      this.account = {
-        name: "Mickey",
-        email: "",
-        jobTitle: "",
-        birthday: "",
-        hasEars: true
-      }
-  },
-
-  accountLoaded: function() {
-    console.log('Account loaded; value: '+ this.account.name + " " + this.account.hasEars);
-    this.$.storageValue.innerHTML = this.$.locStore.value.name + " " + this.$.locStore.value.hasEars
-  },
-
-  accountCheck: function() {
-
-  }
-});
-
-
-
-</script>
 
 
       <div class="footer">
@@ -245,6 +203,8 @@ Polymer({
 
     <!-- build:js scripts/main.js -->
     <script src="scripts/main.js"></script>
+    <script src="scripts/password.js"></script>
+
     <!-- endbuild -->
   </body>
 </html>
