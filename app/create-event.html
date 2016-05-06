@@ -1,0 +1,90 @@
+    <!--template for new event iron-localstorage-->
+<dom-module id="create-event">
+  <template>
+    <iron-localstorage
+      name="thing"
+      value="{{thing}}"
+      on-iron-localstorage-load="eventLoaded"
+      on-iron-localstorage-load-empty="initializeEvent"
+      id="locStore">
+    </iron-localstorage>
+
+        <!-- event name -->
+    <paper-input type="text" label="What do you want to call the event?" required auto-validate autocomplete="on" error-message="Name of the event, please"  id="eventName" value="{{thing.eventName::change}}" class="thingRequired"></paper-input>
+    <!-- event type -->
+    <paper-autocomplete type="text" label="What kind of event? Wedding..."  required error-message="Event type?" id="input-local" class="thingRequired"></paper-autocomplete>
+    <!-- event host -->
+    <paper-input type="text" label="Who is hosting the event?" required auto-validate autocomplete="on" error-message="host for the event?" id="hostName" value="{{thing.hostName::change}}" class="thingRequired"></paper-input>
+    <!-- event start -->
+    <paper-input type="datetime-local" label ="start date and time" required auto-validate error-message="When does it start?" id="start" class="thingRequired"></paper-input>
+    <!-- event end -->
+    <paper-input type="datetime-local" label ="end date and time" required auto-validate error-message="When does it end?" id="end" class="thingRequired"></paper-input>
+    <!-- event guests -->
+    <paper-input type="text" label="Who do you want to invite?" required auto-validate autocomplete="on" error-message="Guests?" id="guestList" value="{{thing.guests::change}}" class="thingRequired"></paper-input>
+    <!-- event adress -->
+    <paper-input type="text" id="address" label="Address" onFocus="geolocate()" required auto-validate autocomplete="on" error-message="Where is it?" id="place" value="{{thing.address::change}}" class="thingRequired"></paper-input>
+    <!-- event mesasge -->
+    <paper-input type="text" label="Additional information to the guests?" id="addInfo"></paper-input>
+
+    <paper-button raised on-click="createEventBtn" id="createEventBtn">create event</paper-button>
+    <br>
+    <br>
+    <p id="eventValue"></p>
+
+  </template>
+</dom-module>
+
+<script type="text/javascript">
+
+      // a polymer script for localstorage
+  Polymer({
+    is: 'create-event',
+    properties: {
+      thing: {
+        type: Object,
+        notify: true
+      }
+    },
+    // initializes default if nothing has been stored
+    initializeEvent: function() {
+      var fullName = document.getElementById('firstName').value + " " + document.getElementById('lastName').value;
+        this.thing = {
+          eventName: "",
+          hostName: fullName,
+          guests: "",
+          address: ""
+        }
+    },
+    // when the event is loaded
+   eventLoaded: function() {
+      console.log('thing loaded; value: '+ this.thing.hostName);
+      var fullName = document.getElementById('firstName').value + " " + document.getElementById('lastName').value;
+      this.thing = {hostName: fullName}
+  },
+
+  // when the create event button is clicked all the required fields should be filled in and
+  //the user input is saved in an array
+  createEventBtn: function() {
+    var createEventBtn = document.getElementById('createEventBtn');
+    var valid = validateForm();
+    if (valid) {
+        this.$.eventValue.innerHTML = this.$.locStore.value.eventName + " has been created";
+      } else {
+        this.$.eventValue.innerHTML = "Please check that you filled in all required fields";
+
+      }
+  }
+
+
+  });
+
+  function validateForm() {
+    var isValid = true;
+    $('.thingRequired').each(function() {
+      if ( $(this).val() === '' )
+          isValid = false;
+    });
+    return isValid;
+  };
+
+</script>

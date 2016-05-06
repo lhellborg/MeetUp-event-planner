@@ -30,6 +30,7 @@ body {
 .header {
   border-bottom: 1px solid #38E543;
 
+
   /* Make the masthead heading the same height as the navigation */
   h3 {
     margin-top: 0;
@@ -43,6 +44,11 @@ h6 {
   margin-top: 40px;
   margin-bottom: 0px;
 }
+
+input.radioBtn {
+  margin-left: 10px;
+}
+
 
 /* Custom page footer */
 .footer {
@@ -82,7 +88,8 @@ h6 {
     min-width: 150px;
 }
 
-#storageValue {
+#storageValue,
+#eventValue {
     font-size: large;
     color: #4120E2;
     font-style: italic;
@@ -117,11 +124,10 @@ h6 {
 // password helper text and validation color change
 ul.helper-text {
   display: block;
-  margin-top: 6px;
   font-size: 12px;
   line-height: 22px;
   color: #808080;
-  margin-top: -30px;
+  margin-top: -32px;
   margin-left: 70px;
 
   li.valid {

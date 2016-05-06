@@ -40,8 +40,10 @@
     <link rel="import" href="bower_components/iron-validator-behavior/iron-validator-behavior.html">
     <link rel="import" href="bower_components/paper-autocomplete/paper-autocomplete.html">
 
-
-
+    <!-- custom made polymer -->
+     <link rel="import" href="validation-element.html">
+     <link rel="import" href="create-account.html">
+     <link rel="import" href="create-event.html">
 
 
 
@@ -55,68 +57,27 @@
   </head>
   <body>
 
-    <!--template for account iron-localstorage-->
-    <dom-module id="create-account">
-      <template>
-        <iron-localstorage
-          name="account"
-          value="{{account}}"
-          on-iron-localstorage-load="accountLoaded"
-          on-iron-localstorage-load-empty="initializeAccount"
-          id="locStore">
-        </iron-localstorage>
-
-        <!--first name input-->
-        <paper-input type="text" label="Your first name, please" value="{{account.firstName::change}}" required auto-validate autocomplete="on" autofocus error-message="first name please!" id="firstName" class="accountRequired"></paper-input>
-
-        <!--last name input-->
-        <paper-input type="text" label="Your last name, please" value="{{account.lastName::change}}" required auto-validate autocomplete="on" error-message="last name please!" id="lastName" class="accountRequired"></paper-input>
-
-        <!-- password input -->
-        <form>
-            <paper-input type="password" label="Password" required auto-validate error-message="we need a password here!" class="accountRequired" id="password1"></paper-input>
-            <ul class="helper-text">
-                <li class="length glyphicon"> >8</li>
-                <li class="lowercase glyphicon">a-z</li>
-                <li class="uppercase glyphicon">A-Z</li>
-                <li class="special glyphicon">!?:.()</li>
-            </ul>
-        </form>
-
-        <paper-input type="password" label="Confirm password" required auto-validate error-message="we need a password here!" class="accountRequired" id="password2"></paper-input>
-
-        <!-- email input -->
-        <gold-email-input type="email" required="" auto-validate="" value="{{account.email::change}}" error-message="Please enter a valid email" label="Your email adress, please" tabindex="0" aria-disabled="false" class="accountRequired">
-        </gold-email-input>
-
-        <!-- optional input -->
-        <h6>Optional fields</h6>
-        <paper-input type="text" label ="job-title" value="{{account.jobTitle::change}}"></paper-input>
-        <paper-input type="date" label ="birthday" value="{{account.birthday::change}}"></paper-input>
-
-        <br>
-        <paper-button raised on-click="createAccountBtn" id="createBtn">create account</paper-button>
-        <br>
-        <br>
-        <p id="storageValue" id="userMessage"></p>
-
-      </template>
-    </dom-module>
-
-
     <div class="container">
       <div class="header">
         <h3 class="text-muted">Meet-Up Event Planner</h3>
       </div>
 
+
+
       <div class="jumbotron">
         <h2>Hi <span id="accountName"></span></h2>
         <p class="lead">What do you want to do?</p>
-          <paper-radio-group selected="newAccount">
-            <paper-radio-button name="newAccount" id="newAccount" class="red">Create account</paper-radio-button>
-            <paper-radio-button name="createEvent" id="newEvent" class="red">Create event</paper-radio-button>
-            <paper-radio-button name="showEvent" id="radioShow" class="red">Show event</paper-radio-button>
-          </paper-radio-group>
+        <form>
+          <label for="newAccount" >
+            <input type="radio" name="activity" value="newAccount" id="newAccount" checked class="radioBtn"> Create account
+          </label>
+          <label for="newEvent">
+            <input type="radio" name="activity" value="newEvent" id="newEvent" class="radioBtn"> Create event
+          </label>
+          <label for="radioShow">
+            <input type="radio" name="activity" value="radioShow" id="radioShow" class="radioBtn"> Show event
+          </label>
+        </form>
       </div>
 
       <div class="row marketing" id="createAccount">
@@ -133,24 +94,9 @@
 
       <div class="row marketing" id="createEvent">
         <h4>Create Event</h4>
-        <!-- event name -->
-        <paper-input type="text" label="What do you want to call the event?" required auto-validate autocomplete="on" error-message="Name of the event, please"  id="eventName"></paper-input>
-        <!-- event type -->
-        <paper-autocomplete type="text" label="What kind of event? Wedding..."  required error-message="Event type?" id="input-local"></paper-autocomplete>
-        <!-- event host -->
-        <paper-input type="text" label="Who is hosting the event?" required auto-validate autocomplete="on" error-message="host for the event?" id="hostName"></paper-input>
-        <!-- event start -->
-        <paper-input type="datetime-local" label ="start date and time" required auto-validate error-message="When does it start?" id="start"></paper-input>
-        <!-- event end -->
-        <paper-input type="datetime-local" label ="end date and time" required auto-validate error-message="When does it end?" id="end"></paper-input>
-        <!-- event guests -->
-        <paper-input type="text" label="Who do you want to invite?" required auto-validate autocomplete="on" error-message="Guests?" id="guestList"></paper-input>
-        <!-- event adress -->
-        <paper-input type="text" id="address" label="Address" onFocus="geolocate()" required auto-validate autocomplete="on" error-message="Where is it?" id="place"></paper-input>
-        <!-- event mesasge -->
-        <paper-input type="text" label="Additional information to the guests?" id="addInfo"></paper-input>
 
-        <paper-button raised id="createEventBtn">create event</paper-button>
+        <create-event></create-event>
+
         <hr>
       </div>
 

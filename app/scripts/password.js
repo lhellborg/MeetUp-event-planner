@@ -3,6 +3,7 @@ $(document).ready(function() {
 	// an IFFE function to isolate variables from the global scope, built on Matt Litzingers "how to build a password validator with js"
 	(function(){
 	    var password = document.getElementById('password1');
+	    var createButton = document.getElementById('createBtn');
 
 	    var helperText = {
 	        charLength: document.querySelector('.helper-text .length'),
@@ -13,7 +14,7 @@ $(document).ready(function() {
 
 	    var pattern = {
 	        charLength: function() {
-	            if( password.value.length >= 8 ) {
+	            if( password.value.length > 8 ) {
 	                return true;
 	            }
 	        },
@@ -60,10 +61,13 @@ $(document).ready(function() {
 	                hasClass(helperText.uppercase, 'valid') &&
 	              hasClass(helperText.special, 'valid')
 	        ) {
-	            addClass(password.parentElement, 'valid');
+	        	createButton.setAttribute('active', true); //activates the createButton
+	        	createButton.removeAttribute("disabled"); //activates the createButton by removing the disabled attribute
+
 	    }
 	    else {
-	      removeClass(password.parentElement, 'valid');
+	      createButton.setAttribute('disabled', true); //disable the createButton
+	      createButton.removeAttribute("active");
 	    }
 	    });
 
@@ -94,7 +98,6 @@ $(document).ready(function() {
 
 	    function hasClass(el, className) {
 	        if (el.classList) {
-	            console.log(el.classList);
 	            return el.classList.contains(className);
 	        }
 	        else {
@@ -102,17 +105,6 @@ $(document).ready(function() {
 	        }
 	    }
 
-	    function confirmPassword() {
-	    	var password1 = document.getElementById('password1');
-	    	var password2 = document.getElementById('password2');
-	    	if (password1 === password2){
-	    		password2.setCustomValidity("")
-	    	} else {
-	    		password2.setCustomValidity("Check the password again, please")
-	    	}
-	    }
-
-	    document.getElementById('password2').onchamge = confirmPassword;
 
 	})();
 });

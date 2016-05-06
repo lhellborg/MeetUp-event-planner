@@ -1,0 +1,58 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/paper-input/paper-input.html">
+<link rel="import" href="custom-validator.html">
+
+<dom-module id='validation-element'>
+    <template>
+        <custom-validator id="valid1" validator-name="validator1"></custom-validator>
+        <custom-validator id="valid2" validator-name="validator2"></custom-validator>
+                <!-- password input -->
+        <form>
+            <paper-input type="password" label="Password" required auto-validate error-message="we need a password here!" class="accountRequired" id="password1" validator='validator1'></paper-input>
+            <ul class="helper-text">
+                <li class="length glyphicon"> >8</li>
+                <li class="lowercase glyphicon">a-z</li>
+                <li class="uppercase glyphicon">A-Z</li>
+                <li class="special glyphicon">!?:.()</li>
+            </ul>
+        </form>
+
+        <paper-input type="password" label="Confirm password" required auto-validate error-message="passwords don't match!" class="accountRequired" id="password2" validator='validator2'></paper-input>
+    </template>
+</dom-module>
+<script>
+
+    Polymer({
+
+        is: 'validation-element',
+
+
+
+        validate1: function(value) {
+            //validation code
+            var lower = /^(?=.*[a-z]).+$/; // Lowercase character pattern
+            var upper = /^(?=.*[A-Z]).+$/; // Uppercase character pattern
+            var special = /^(?=.*[0-9_\W]).+$/; // Special character pattern
+            if(lower.test(value) & upper.test(value) & special.test(value) & value.length > 8) {
+                return true;
+            }
+        },
+
+        validate2: function(value) {
+            //validation code
+            console.log(value);
+            console.log(document.getElementById('password1').value);
+            var password1 = document.getElementById('password1').value;
+            if (value === password1) {
+                return true;
+            }
+        },
+
+        ready: function() {
+            this.$.valid1.validate = this.validate1.bind(this);
+            this.$.valid2.validate = this.validate2.bind(this);
+        }
+
+    });
+
+</script>
