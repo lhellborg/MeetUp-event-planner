@@ -60,7 +60,7 @@
     },
     // when the account is loaded
    accountLoaded: function() {
-      console.log('Account loaded; value: '+ this.account.firstName);
+      console.log('Account loaded; value: '+ this.account.firstName );
       if (this.$.locStore.value.firstName === "") {
         document.getElementById("accountName").innerHTML = "Mate";
       } else {

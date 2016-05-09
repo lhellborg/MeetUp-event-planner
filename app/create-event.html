@@ -6,11 +6,11 @@
       value="{{thing}}"
       on-iron-localstorage-load="eventLoaded"
       on-iron-localstorage-load-empty="initializeEvent"
-      id="locStore">
+      id="eventStore">
     </iron-localstorage>
 
         <!-- event name -->
-    <paper-input type="text" label="What do you want to call the event?" required auto-validate autocomplete="on" error-message="Name of the event, please"  id="eventName" value="{{thing.eventName::change}}" class="thingRequired"></paper-input>
+    <paper-input type="text" label="What do you want to call the event?" value="{{thing.eventName::change}}" required auto-validate autocomplete="on" error-message="Name of the event, please"  id="eventName"  class="thingRequired"></paper-input>
     <!-- event type -->
     <paper-autocomplete type="text" label="What kind of event? Wedding..."  required error-message="Event type?" id="input-local" class="thingRequired"></paper-autocomplete>
     <!-- event host -->
@@ -61,19 +61,14 @@
     },
     // when the event is loaded
    eventLoaded: function() {
-      console.log('thing loaded; value: '+ this.thing.hostName);
+      console.log('thing loaded; value: '+ this.thing.hostName + " " + this.thing.eventName);
       var fullName = document.getElementById('firstName').value + " " + document.getElementById('lastName').value;
-      this.thing = {hostName: fullName}
-  },
+    },
 
   // when the create event button is clicked all the required fields should be filled in and
   //the user input is saved in an array
   createEventBtn: function() {
-    var ev1 = document.getElementById("event");
-    var ev2 = document.getElementById("eventTime");
-    var ev3 = document.getElementById("eventLocation");
-    var ev4 = document.getElementById("eventAddInfo");
-    var evName = document.getElementById("evName");
+
     var guests = document.getElementById('guestList');
     var eventName = document.getElementById('eventName');
     var eventType = document.getElementById('input-local');
@@ -86,27 +81,23 @@
     var valid = validateForm(); //checks that all required fields are filled in
 
     if (valid) {
-        this.$.eventValue.innerHTML = this.$.locStore.value.eventName + " has been created";
+        this.$.eventValue.innerHTML = this.$.eventStore.value.eventName + " has been created";
 
-        createEventArray.push({eventName: eventName.value, hostName: eventHost.value, eventType: eventType.value,
-        guests: guests.value, start: eventStart.value, end: eventEnd.value, eventAdress: eventAdress.value, eventInfo: eventInfo.value});
+        // to get the string values of the inputs
+        this.thing.startTime = eventStart.value;
+        this.thing.endTime = eventEnd.value;
+        this.thing.eventType = eventType.value;
 
+        createEventArray.push(this.thing)
+        showEventFunction();
 
-        evName.textContent = eventName.value;
-        ev1.textContent = eventHost.value + " invited " + guests.value + " to " + eventType.value + "." ;
-        ev2.textContent = "Starting: " + eventStart.value + " and ending: " + eventEnd.value + "." ;
-        ev3.textContent = " Address: " + eventAdress.value + ".";
-        ev4.textContent = eventInfo.value;
       } else {
         this.$.eventValue.innerHTML = "Please check that you filled in all required fields";
-
       }
-  }
+    }
 
   });
 
-    // an event array to save the different events
-  var createEventArray = [];
 
   function validateForm() {
     var isValid = true;
@@ -117,7 +108,7 @@
     return isValid;
   };
 
-  // localstorage can only handle strings with thess two new prototypes we can use it for objects and arrays as well
+   // localStorage can only handle strings with thess two new prototypes we can use it for objects and arrays as well
   // Use localStorage.setObj(key, value) to save an array or object and localStorage.getObj(key) to retrieve it.
   Storage.prototype.setObj = function(key, obj) { //
     return this.setItem(key, JSON.stringify(obj))
@@ -126,5 +117,48 @@
   Storage.prototype.getObj = function(key) {
       return JSON.parse(this.getItem(key))
   }
+
+  // an event array to save the different events
+  var createEventArray = [];
+
+  function showEventFunction() {
+    // saving old eventsfrom localStorage into createEventArray to be able to show them
+    var oldEvents = localStorage.getObj("events")
+    console.log(oldEvents)
+
+    oldEvents.forEach(function(ev) {
+      createEventArray.push(ev)
+    });
+
+    // saving all events (old and new) in localStorage
+    localStorage.setObj("events", createEventArray);
+
+
+    // To show the created events array in show event
+      var ev = document.getElementById("events"); //div for each event
+      var evName = document.getElementById("evName"); //name of the event
+      var ev1 = document.getElementById("show"); //p element general info
+      var ev2 = document.getElementById("showTime"); //p element showing time
+      var ev3 = document.getElementById("showLocation"); //p element showing location
+      var ev4 = document.getElementById("showAddInfo"); //p element show addition info
+
+      var events = localStorage.getObj("events");
+      console.log(localStorage.getObj("events")[0]);
+      console.log(localStorage.getObj("events")[0].eventName);
+
+
+
+      evName.textContent = events[0].eventName;
+      ev1.textContent = events[0].hostName + " invited " + events[0].guests + " to " + events[0].eventType + "." ;
+      ev2.textContent = "Starting: " + events[0].startTime + " and ending: " + events[0].endTime + "." ;
+      ev3.textContent = " Address: " + events[0].address + ".";
+      ev4.textContent = events[0].addInfo;
+
+      events.forEach(function(ev) {
+        append
+      })
+
+  }
+
 
 </script>

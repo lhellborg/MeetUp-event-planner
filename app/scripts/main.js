@@ -34,41 +34,4 @@ $(document).ready(function() {
 		inputLocal.source = eventType;
 	});
 
-	// // an event array to save the different events
-	// var createEventArray = [
-	// 	{
-	// 		eventName: "",
-	// 		guests: "",
-	// 		eventType: "",
-	// 		eventHost: "",
-	// 		eventStart: "",
-	// 		eventEnd: "",
-	// 		eventAdress: "",
-	// 		eventInfo: ""
-
-	// 	}
-	// ];
-
-	// To fill the created event calender array with information
-	  // To ensure that elements are ready on polyfilled browsers,
-	  // wait for WebComponentsReady.
-	document.addEventListener('WebComponentsReady', function() {
-
-		var createEvent = document.getElementById('createEventBtn');
-		var guests = document.getElementById('guestList');
-		var eventName = document.getElementById('eventName');
-		var eventType = document.getElementById('input-local');
-		var eventHost = document.getElementById('hostName');
-		var eventStart = document.getElementById('start');
-		var eventEnd = document.getElementById('end');
-		var eventAdress = document.getElementById('address');
-		var eventInfo = document.getElementById('addInfo');
-		createEvent.addEventListener('click', function() {
-			console.log(createEventArray)
-			// createEventArray.push({eventName: eventName.value, hostName: eventHost.value, eventType: eventType.value,
-			//  guests: guests.value, start: eventStart.value, end: eventEnd.value, eventAdress: eventAdress.value, eventInfo: eventInfo.value});
-			// console.log(createEventArray)
-		});
-	});
-
 });
