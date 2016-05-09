@@ -88,6 +88,14 @@ input.radioBtn {
     min-width: 150px;
 }
 
+#createEventBtn {
+  margin-top: 12px;
+}
+
+#input-local {
+  padding-top: 20px;
+}
+
 #storageValue,
 #eventValue {
     font-size: large;
@@ -99,7 +107,7 @@ input.radioBtn {
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {
-    max-width: 730px;
+    max-width: 768px;
   }
 
   /* Remove the padding we set earlier */
@@ -119,6 +127,12 @@ input.radioBtn {
   .jumbotron {
     border-bottom: 0;
   }
+
+  #createEvent,
+  #showEvent {
+    padding-left: 10px;
+  }
+
 }
 
 // password helper text and validation color change

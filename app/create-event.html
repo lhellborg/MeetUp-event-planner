@@ -50,9 +50,13 @@
       var fullName = document.getElementById('firstName').value + " " + document.getElementById('lastName').value;
         this.thing = {
           eventName: "",
+          eventType: "",
           hostName: fullName,
+          startTime: "",
+          endTime: "",
           guests: "",
-          address: ""
+          address: "",
+          addInfo: ""
         }
     },
     // when the event is loaded
@@ -65,18 +69,44 @@
   // when the create event button is clicked all the required fields should be filled in and
   //the user input is saved in an array
   createEventBtn: function() {
-    var createEventBtn = document.getElementById('createEventBtn');
-    var valid = validateForm();
+    var ev1 = document.getElementById("event");
+    var ev2 = document.getElementById("eventTime");
+    var ev3 = document.getElementById("eventLocation");
+    var ev4 = document.getElementById("eventAddInfo");
+    var evName = document.getElementById("evName");
+    var guests = document.getElementById('guestList');
+    var eventName = document.getElementById('eventName');
+    var eventType = document.getElementById('input-local');
+    var eventHost = document.getElementById('hostName');
+    var eventStart = document.getElementById('start');
+    var eventEnd = document.getElementById('end');
+    var eventAdress = document.getElementById('address');
+    var eventInfo = document.getElementById('addInfo');
+
+    var valid = validateForm(); //checks that all required fields are filled in
+
     if (valid) {
         this.$.eventValue.innerHTML = this.$.locStore.value.eventName + " has been created";
+
+        createEventArray.push({eventName: eventName.value, hostName: eventHost.value, eventType: eventType.value,
+        guests: guests.value, start: eventStart.value, end: eventEnd.value, eventAdress: eventAdress.value, eventInfo: eventInfo.value});
+
+
+        evName.textContent = eventName.value;
+        ev1.textContent = eventHost.value + " invited " + guests.value + " to " + eventType.value + "." ;
+        ev2.textContent = "Starting: " + eventStart.value + " and ending: " + eventEnd.value + "." ;
+        ev3.textContent = " Address: " + eventAdress.value + ".";
+        ev4.textContent = eventInfo.value;
       } else {
         this.$.eventValue.innerHTML = "Please check that you filled in all required fields";
 
       }
   }
 
-
   });
+
+    // an event array to save the different events
+  var createEventArray = [];
 
   function validateForm() {
     var isValid = true;
@@ -86,5 +116,15 @@
     });
     return isValid;
   };
+
+  // localstorage can only handle strings with thess two new prototypes we can use it for objects and arrays as well
+  // Use localStorage.setObj(key, value) to save an array or object and localStorage.getObj(key) to retrieve it.
+  Storage.prototype.setObj = function(key, obj) { //
+    return this.setItem(key, JSON.stringify(obj))
+  }
+
+  Storage.prototype.getObj = function(key) {
+      return JSON.parse(this.getItem(key))
+  }
 
 </script>

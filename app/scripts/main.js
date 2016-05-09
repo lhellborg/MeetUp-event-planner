@@ -13,7 +13,7 @@ $(document).ready(function() {
 	$('#newEvent').click(function() {
 	  $('#createEvent').show();
 	  $('#createAccount').hide();
-	  $('#showEvent').hide();
+	  $('#showEvent').show();
 	  $('#newEvent').attr('checked');
 
 	});
@@ -29,27 +29,25 @@ $(document).ready(function() {
 	// The function to show the autoselected items for the different event types
 	HTMLImports.whenReady(function(){
 		// dropdown autoselect items for event types
-		var eventType = ["Wedding", "Birthday", "Conferance talk", "Dinner", "Meeting", "Movie"]
+		var eventType = ["Wedding", "Birthday", "Conferance talk", "Dinner", "Meeting", "Movie", "Coffe and Cake", "Brunch", "Get together", "Lunch", "Business"]
 		var inputLocal = document.querySelector('#input-local');
 		inputLocal.source = eventType;
 	});
 
-	// an event array to save the different events
-	var createEventArray = [
-		{
-			evName: "",
-			firstName: "",
-			lastName: "",
-			guests: [],
-			eventName: "",
-			eventHost: "",
-			eventStart: "",
-			eventEnd: "",
-			eventAdress: "",
-			eventInfo: ""
+	// // an event array to save the different events
+	// var createEventArray = [
+	// 	{
+	// 		eventName: "",
+	// 		guests: "",
+	// 		eventType: "",
+	// 		eventHost: "",
+	// 		eventStart: "",
+	// 		eventEnd: "",
+	// 		eventAdress: "",
+	// 		eventInfo: ""
 
-		}
-	];
+	// 	}
+	// ];
 
 	// To fill the created event calender array with information
 	  // To ensure that elements are ready on polyfilled browsers,
@@ -57,10 +55,6 @@ $(document).ready(function() {
 	document.addEventListener('WebComponentsReady', function() {
 
 		var createEvent = document.getElementById('createEventBtn');
-		var ev = document.getElementById("event");
-		var evName = document.getElementById("evName");
-		var firstName = document.getElementById('firstName');
-		var lastName = document.getElementById('lastName');
 		var guests = document.getElementById('guestList');
 		var eventName = document.getElementById('eventName');
 		var eventType = document.getElementById('input-local');
@@ -70,8 +64,10 @@ $(document).ready(function() {
 		var eventAdress = document.getElementById('address');
 		var eventInfo = document.getElementById('addInfo');
 		createEvent.addEventListener('click', function() {
-			evName.textContent = eventName.value;
-			ev.textContent = name.value + " invited " + guests.value;
+			console.log(createEventArray)
+			// createEventArray.push({eventName: eventName.value, hostName: eventHost.value, eventType: eventType.value,
+			//  guests: guests.value, start: eventStart.value, end: eventEnd.value, eventAdress: eventAdress.value, eventInfo: eventInfo.value});
+			// console.log(createEventArray)
 		});
 	});
 

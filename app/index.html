@@ -80,34 +80,43 @@
         </form>
       </div>
 
-      <div class="row marketing" id="createAccount">
-        <div class="col-lg-6">
+      <div class="row">
+        <div class="col-xs-12 col-md-6 col-lg-6 marketing" id="createAccount">
 
-              <h4>Create account</h4>
+          <h4>Create account</h4>
 
-              <create-account></create-account>
-
+          <create-account></create-account>
+          <hr>
         </div> <!--end col-lg-6 -->
 
-        <hr>
-      </div> <!--end createAccount-->
 
-      <div class="row marketing" id="createEvent">
-        <h4>Create Event</h4>
 
-        <create-event></create-event>
 
-        <hr>
-      </div>
 
-      <div class="row marketing" id="showEvent" style="display:none">
-        <h4>Show Event</h4>
-        <div id="events">
-          <h4 id="evName"></h4>
-          <p id="event"></p>
-        </div>
-      </div>
+          <div class="col-xs-12 col-md-6 col-lg-6 marketing" id="createEvent">
+            <h4>Create Event</h4>
 
+            <create-event></create-event>
+
+            <hr>
+          </div>
+
+
+
+          <div class="col-md-6 marketing" id="showEvent">
+            <h4>Show Event</h4>
+            <div id="events">
+              <h5 id="evName"></h5>
+              <p id="event"></p>
+              <p id="eventTime"></p>
+              <p id="eventLocation"></p>
+              <p id="eventAddInfo"></p>
+            </div>
+            <hr>
+          </div>
+
+
+      </div>  <!--end row-->
     </div>
 
 
