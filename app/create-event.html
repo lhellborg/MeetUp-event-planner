@@ -89,7 +89,7 @@
         this.thing.eventType = eventType.value;
 
         createEventArray.push(this.thing)
-        showEventFunction();
+        storeEvents();
 
       } else {
         this.$.eventValue.innerHTML = "Please check that you filled in all required fields";
@@ -121,44 +121,66 @@
   // an event array to save the different events
   var createEventArray = [];
 
-  function showEventFunction() {
+  function storeEvents() {
+
     // saving old eventsfrom localStorage into createEventArray to be able to show them
     var oldEvents = localStorage.getObj("events")
-    console.log(oldEvents)
 
-    oldEvents.forEach(function(ev) {
-      createEventArray.push(ev)
-    });
+    if (oldEvents != null) {
+      oldEvents.forEach(function(ev) {
+        createEventArray.push(ev)
+      });
 
-    // saving all events (old and new) in localStorage
-    localStorage.setObj("events", createEventArray);
+    }
+      // saving all events (old and new) in localStorage
+      localStorage.setObj("events", createEventArray);
+    }
+
+  function showEventFunction() {
+     // remove the elements in the show event section before adding new ones
+    $("#events").empty();
+
+    var events = localStorage.getObj("events");
+
+    events.forEach(function(ev) {
+      $("#events").append('<div class="event-entry"><h5 class="showEventName">' + ev.eventName + "</h5>" +
+      '<div class="showDetails"><p>' + ev.hostName + " invited " + ev.guests + " to " + ev.eventType + "." + "</p>" +
+            '<p> ' + "Starting: " + ev.startTime + " and ending: " + ev.endTime + "." + "</p>" +
+            '<p>' + " Address: " + ev.address + "." + "</p>" +
+            '<p>' + ev.addInfo + "</p></div></div>");
+    }) //end forEach
+  } //end showEventFunction
+
+  function showLastEvent() {
+    // remove the elements in the show event section before adding new ones
+    $("#events").empty();
+
+    var ev = localStorage.getObj("events");
+
+    if (ev != null) {
+      $("#events").append('<div class="event-entry"><h5 class="showEventName">' + ev[0].eventName + "</h5>" +
+      '<div><p>' + ev[0].hostName + " invited " + ev[0].guests + " to " + ev[0].eventType + "." + "</p>" +
+      '<p> ' + "Starting: " + ev[0].startTime + " and ending: " + ev[0].endTime + "." + "</p>" +
+      '<p>' + " Address: " + ev[0].address + "." + "</p>" +
+      '<p>' + ev[0].addInfo + "</p></div></div>");
+    } else {
+      $("#events").append('<div><h5>' + "There are no saved events to show" + "</h5>");
+    }
 
 
-    // To show the created events array in show event
-      var ev = document.getElementById("events"); //div for each event
-      var evName = document.getElementById("evName"); //name of the event
-      var ev1 = document.getElementById("show"); //p element general info
-      var ev2 = document.getElementById("showTime"); //p element showing time
-      var ev3 = document.getElementById("showLocation"); //p element showing location
-      var ev4 = document.getElementById("showAddInfo"); //p element show addition info
-
-      var events = localStorage.getObj("events");
-      console.log(localStorage.getObj("events")[0]);
-      console.log(localStorage.getObj("events")[0].eventName);
-
-
-
-      evName.textContent = events[0].eventName;
-      ev1.textContent = events[0].hostName + " invited " + events[0].guests + " to " + events[0].eventType + "." ;
-      ev2.textContent = "Starting: " + events[0].startTime + " and ending: " + events[0].endTime + "." ;
-      ev3.textContent = " Address: " + events[0].address + ".";
-      ev4.textContent = events[0].addInfo;
-
-      events.forEach(function(ev) {
-        append
-      })
-
-  }
+  } //end showLastEvent
 
 
 </script>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -25,6 +25,22 @@ $(document).ready(function() {
 	  $('#radioShow').attr('checked');
 	});
 
+// when the "show all event" button is clicked all the events should show up
+	$("#showEventBtn").click(function() {
+		showEventFunction();
+	});
+
+// when the "show all event" button is clicked all the events should show up
+	$("#showLastEventBtn").click(function() {
+		showLastEvent();
+	});
+
+
+	//when an event name is clicked the details of the event will show up
+	$("#events").on('click', '.event-entry', function() {
+		$(this).toggleClass("open");
+	});
+
 
 	// The function to show the autoselected items for the different event types
 	HTMLImports.whenReady(function(){
@@ -33,5 +49,10 @@ $(document).ready(function() {
 		var inputLocal = document.querySelector('#input-local');
 		inputLocal.source = eventType;
 	});
+
+
+
+
+
 
 });
