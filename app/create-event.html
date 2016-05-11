@@ -21,8 +21,25 @@
     <paper-input type="datetime-local" label ="start date and time" required auto-validate error-message="When does it start?" id="start" class="thingRequired date"></paper-input>
     <!-- event end -->
     <paper-input type="datetime-local" label ="end date and time" required auto-validate error-message="When does it end?" id="end" class="thingRequired date"></paper-input>
+
     <!-- event guests -->
-    <paper-input type="text" label="Who do you want to invite?" required auto-validate autocomplete="on" error-message="Guests?" id="guestList" value="{{thing.guests::change}}" class="thingRequired"></paper-input>
+
+      <paper-input type="text" label="Who do you want to invite?"  auto-validate autocomplete="on" error-message="Guests?" id="guestList" value="{{thing.guests::change}}" class="thingRequired" list="browsers" name="browser" multiple></paper-input>
+
+        <datalist id="browsers">
+          <option value="Friend1@cool.com">
+          <option value="Friend2@cool.com">
+          <option value="Friend3@cool.com">
+          <option value="Friend4@cool.com">
+          <option value="Friend5@cool.com">
+        </datalist>
+
+      <br>
+      <paper-button raised on-click="addGuests" id="addGuests">add guest</paper-button>
+      <ul id="invitedGuests">Invited Guests</ul>
+
+<!-- event guests -->
+<!--     <paper-input type="text" label="Who do you want to invite?" required auto-validate autocomplete="on" error-message="Guests?" id="guestList" value="{{thing.guests::change}}" class="thingRequired"></paper-input> -->
 
     <!-- event mesasge -->
     <paper-input type="text" label="Additional information to the guests?" id="addInfo"></paper-input>
@@ -76,6 +93,16 @@
         }
     },
 
+  //when the add button is clicked the guest should be added in the guest array
+  addGuests: function() {
+    var guestList = []; // an array to save the guest names in
+    var guest = document.getElementById('guestList').$.input.value;
+    document.getElementById('guestList').$.input.value = "";
+    document.getElementById('guestList').focus();
+    guestList.push(guest);
+    showGuestNames(guestList);
+  },
+
   // when the create event button is clicked all the required fields should be filled in and
   //the user input is saved in an array
   createEventBtn: function() {
@@ -104,7 +131,8 @@
         this.thing.address = eventAdress.value;
         this.thing.addInfo = eventInfo.value;
 
-        createEventArray.push(this.thing) //add event info to the array
+        createEventArray = []; //empty the array
+        createEventArray.push(this.thing) //add the new event info to the array
         storeEvents(); //store the information in localStorage
         showLastEvent();
 
@@ -130,17 +158,22 @@
   // Use localStorage.setObj(key, value) to save an array or object and localStorage.getObj(key) to retrieve it.
   Storage.prototype.setObj = function(key, obj) { //
     return this.setItem(key, JSON.stringify(obj))
-  }
+  };
 
   Storage.prototype.getObj = function(key) {
       return JSON.parse(this.getItem(key))
-  }
+  };
+
+  function showGuestNames(guestList) {
+    guestList.forEach(function(name) {
+      $("#invitedGuests").append("<li>" + name + "</li>")
+    })
+  };
 
   // an event array to save the different events
   var createEventArray = [];
 
   function storeEvents() {
-
     // saving old eventsfrom localStorage into createEventArray to be able to show them
     var oldEvents = localStorage.getObj("events")
 
@@ -152,7 +185,7 @@
     }
       // saving all events (old and new) in localStorage
       localStorage.setObj("events", createEventArray);
-    }
+  };
 
   function showEventFunction() {
      // remove the elements in the show event section before adding new ones
@@ -171,7 +204,7 @@
     } else {
       $("#events").append('<div><h5>' + "There are no saved events to show" + "</h5>");
     }
-  } //end showEventFunction
+  }; //end showEventFunction
 
   function showLastEvent() {
     // remove the elements in the show event section before adding new ones
@@ -188,9 +221,7 @@
     } else {
       $("#events").append('<div><h5>' + "There are no saved events to show" + "</h5>");
     }
-
-
-  } //end showLastEvent
+  }; //end showLastEvent
 
 
 </script>

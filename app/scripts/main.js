@@ -36,6 +36,7 @@ $(function(){
 	});
 
 
+
 	// The function to show the autoselected items for the different event types
 	HTMLImports.whenReady(function(){
 		// dropdown autoselect items for event types

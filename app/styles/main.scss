@@ -108,11 +108,16 @@ hr {
 
 #storageValue,
 #eventValue {
-    font-size: large;
-    color: #4120E2;
-    font-style: italic;
-    font-family: cursive;
+  font-size: large;
+  color: #4120E2;
+  font-style: italic;
+  font-family: cursive;
 }
+
+ul#invitedGuests {
+  display: inline-table;
+}
+
  .showEventName {
   cursor: pointer;
  }
