@@ -15,7 +15,7 @@ $icon-font-path: '../fonts/';
 body {
   padding-top: 20px;
   padding-bottom: 20px;
-  background: #55B7E5;
+  background: rgba(48, 147, 177, 0.22);
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -29,8 +29,6 @@ body {
 /* Custom page header */
 .header {
   border-bottom: 1px solid #38E543;
-
-
   /* Make the masthead heading the same height as the navigation */
   h3 {
     margin-top: 0;
@@ -41,7 +39,7 @@ body {
 }
 
 h6 {
-  margin-top: 40px;
+  margin-top: 48px;
   margin-bottom: 0px;
 }
 
@@ -84,12 +82,20 @@ input.radioBtn {
   }
 }
 
+paper-input.date.paper-input-0 {
+  margin-top: -1px;
+}
+
+hr {
+  border-top: 1px solid #38E543;
+}
+
 #createBtn {
-    min-width: 150px;
+  min-width: 150px;
 }
 
 #createEventBtn {
-  margin-top: 12px;
+  margin-top: 1px;
 }
 
 #input-local {
@@ -113,6 +119,32 @@ input.radioBtn {
 
 .event-entry.open .showDetails {
   display: block;
+}
+
+// password helper text and validation color change
+ul.helper-text {
+  display: block;
+  font-size: 12px;
+  line-height: 22px;
+  color: #160082;
+  margin-top: -32px;
+  margin-left: 70px;
+
+  li.valid {
+    color: #1fd34a;
+  }
+
+  .glyphicon {
+    border-style: solid;
+    border-width: 1px;
+    padding: 3px;
+    color: indigo;
+  }
+}
+
+//paper-autocomplete will get the same line colour as the paper-input
+div.focused-line.style-scope.paper-input-container {
+  background: #3f51b5;
 }
 
 /* Responsive: Portrait tablets and up */
@@ -146,23 +178,4 @@ input.radioBtn {
 
 }
 
-// password helper text and validation color change
-ul.helper-text {
-  display: block;
-  font-size: 12px;
-  line-height: 22px;
-  color: #808080;
-  margin-top: -32px;
-  margin-left: 70px;
 
-  li.valid {
-    color: #1fd34a;
-  }
-
-  .glyphicon {
-    border-style: solid;
-    border-width: 1px;
-    padding: 3px;
-    color: indigo;
-  }
-}

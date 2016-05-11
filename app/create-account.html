@@ -25,7 +25,7 @@
     <!-- optional input -->
     <h6>Optional fields</h6>
     <paper-input type="text" label ="job-title" value="{{account.jobTitle::change}}"></paper-input>
-    <paper-input type="date" label ="birthday" value="{{account.birthday::change}}"></paper-input>
+    <paper-input type="date" label ="birthday" value="{{account.birthday::change}}" class="date"></paper-input>
 
     <br>
     <paper-button raised disabled on-click="createAccountBtn" id="createBtn">create account</paper-button>
@@ -70,10 +70,11 @@
 
   // when the create account button is clicked all the required fields should be filled in
   createAccountBtn: function() {
-    var valid = validateForm();
+    var valid = validateCreateAccount();
     if (valid) {
         this.$.storageValue.innerHTML = "Welcome " + this.$.locStore.value.firstName;
-      } else {
+      }
+      else {
         this.$.storageValue.innerHTML = "Please check that you filled in all required fields";
       }
   }
@@ -81,11 +82,13 @@
 
   });
 
-  function validateForm() {
+  function validateCreateAccount() {
     var isValid = true;
     $('.accountRequired').each(function() {
-      if ( $(this).val() === '' )
+      if ( $(this).val() === '' ) {
+          console.log("not valid");
           isValid = false;
+      }
     });
     return isValid;
   };

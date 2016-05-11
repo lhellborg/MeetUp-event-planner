@@ -10,22 +10,24 @@
     </iron-localstorage>
 
         <!-- event name -->
-    <paper-input type="text" label="What do you want to call the event?" value="{{thing.eventName::change}}" required auto-validate autocomplete="on" error-message="Name of the event, please"  id="eventName"  class="thingRequired"></paper-input>
+    <paper-input type="text" label="What do you want to call the event?"  required auto-validate autocomplete="on" error-message="Name of the event, please"  id="eventName"  class="thingRequired"></paper-input>
     <!-- event type -->
-    <paper-autocomplete type="text" label="What kind of event? Wedding..."  required error-message="Event type?" id="input-local" class="thingRequired"></paper-autocomplete>
+    <paper-autocomplete type="text" label="What kind of event? Wedding..."  required auto-validate autocomplete="on" error-message="Event type?" id="input-local" class="thingRequired"></paper-autocomplete>
     <!-- event host -->
     <paper-input type="text" label="Who is hosting the event?" required auto-validate autocomplete="on" error-message="host for the event?" id="hostName" value="{{thing.hostName::change}}" class="thingRequired"></paper-input>
-    <!-- event start -->
-    <paper-input type="datetime-local" label ="start date and time" required auto-validate error-message="When does it start?" id="start" class="thingRequired"></paper-input>
-    <!-- event end -->
-    <paper-input type="datetime-local" label ="end date and time" required auto-validate error-message="When does it end?" id="end" class="thingRequired"></paper-input>
-    <!-- event guests -->
-    <paper-input type="text" label="Who do you want to invite?" required auto-validate autocomplete="on" error-message="Guests?" id="guestList" value="{{thing.guests::change}}" class="thingRequired"></paper-input>
     <!-- event adress -->
-    <paper-input type="text" id="address" label="Address" onFocus="geolocate()" required auto-validate autocomplete="on" error-message="Where is it?" id="place" value="{{thing.address::change}}" class="thingRequired"></paper-input>
+    <paper-input id="place" label="Address" error-message="Where is it?" required auto-validate autocomplete="on" error-message="Where is it?" class="thingRequired"></paper-input>
+    <!-- event start -->
+    <paper-input type="datetime-local" label ="start date and time" required auto-validate error-message="When does it start?" id="start" class="thingRequired date"></paper-input>
+    <!-- event end -->
+    <paper-input type="datetime-local" label ="end date and time" required auto-validate error-message="When does it end?" id="end" class="thingRequired date"></paper-input>
+    <!-- event guests -->
+    <paper-input type="text" label="Who do you want to invite?" required auto-validate autocomplete="on" error-message="Guests?" id="guestList" class="thingRequired"></paper-input>
+
     <!-- event mesasge -->
     <paper-input type="text" label="Additional information to the guests?" id="addInfo"></paper-input>
 
+    <br>
     <paper-button raised on-click="createEventBtn" id="createEventBtn">create event</paper-button>
     <br>
     <br>
@@ -63,6 +65,7 @@
    eventLoaded: function() {
       console.log('thing loaded; value: '+ this.thing.hostName + " " + this.thing.eventName);
       var fullName = document.getElementById('firstName').value + " " + document.getElementById('lastName').value;
+      this.thing.hostName = fullName;
     },
 
   // when the create event button is clicked all the required fields should be filled in and
@@ -75,10 +78,10 @@
     var eventHost = document.getElementById('hostName');
     var eventStart = document.getElementById('start');
     var eventEnd = document.getElementById('end');
-    var eventAdress = document.getElementById('address');
+    var eventAdress = document.getElementById('place');
     var eventInfo = document.getElementById('addInfo');
 
-    var valid = validateForm(); //checks that all required fields are filled in
+    var valid = validateCreateEvent(); //checks that all required fields are filled in
 
     if (valid) {
         this.$.eventValue.innerHTML = this.$.eventStore.value.eventName + " has been created";
@@ -87,9 +90,11 @@
         this.thing.startTime = eventStart.value;
         this.thing.endTime = eventEnd.value;
         this.thing.eventType = eventType.value;
+        this.thing.address = eventAdress.value;
 
-        createEventArray.push(this.thing)
-        storeEvents();
+        createEventArray.push(this.thing) //add event info to the array
+        storeEvents(); //store the information in localStorage
+
 
       } else {
         this.$.eventValue.innerHTML = "Please check that you filled in all required fields";
@@ -99,7 +104,7 @@
   });
 
 
-  function validateForm() {
+  function validateCreateEvent() {
     var isValid = true;
     $('.thingRequired').each(function() {
       if ( $(this).val() === '' )
@@ -142,13 +147,17 @@
 
     var events = localStorage.getObj("events");
 
-    events.forEach(function(ev) {
-      $("#events").append('<div class="event-entry"><h5 class="showEventName">' + ev.eventName + "</h5>" +
-      '<div class="showDetails"><p>' + ev.hostName + " invited " + ev.guests + " to " + ev.eventType + "." + "</p>" +
-            '<p> ' + "Starting: " + ev.startTime + " and ending: " + ev.endTime + "." + "</p>" +
-            '<p>' + " Address: " + ev.address + "." + "</p>" +
-            '<p>' + ev.addInfo + "</p></div></div>");
-    }) //end forEach
+    if (events != null) {
+      events.forEach(function(ev) {
+        $("#events").append('<div class="event-entry"><h5 class="showEventName">' + ev.eventName + "</h5>" +
+        '<div class="showDetails"><p>' + ev.hostName + " invited " + ev.guests + " to " + ev.eventType + "." + "</p>" +
+              '<p> ' + "Starting: " + ev.startTime + " and ending: " + ev.endTime + "." + "</p>" +
+              '<p>' + " Address: " + ev.address + "." + "</p>" +
+              '<p>' + ev.addInfo + "</p></div></div>");
+      }) //end forEach
+    } else {
+      $("#events").append('<div><h5>' + "There are no saved events to show" + "</h5>");
+    }
   } //end showEventFunction
 
   function showLastEvent() {

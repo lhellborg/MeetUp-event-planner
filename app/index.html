@@ -74,14 +74,11 @@
           <label for="newEvent">
             <input type="radio" name="activity" value="newEvent" id="newEvent" class="radioBtn"> Create event
           </label>
-          <label for="radioShow">
-            <input type="radio" name="activity" value="radioShow" id="radioShow" class="radioBtn"> Show event
-          </label>
         </form>
       </div>
 
       <div class="row">
-        <div class="col-xs-12 col-md-6 col-lg-6 marketing" id="createAccount">
+        <div class="col-md-6 marketing" id="createAccount">
 
           <h4>Create account</h4>
 
@@ -93,7 +90,7 @@
 
 
 
-          <div class="col-xs-12 col-md-6 col-lg-6 marketing" id="createEvent">
+          <div class="col-md-6 marketing" id="createEvent">
             <h4>Create Event</h4>
 
             <create-event></create-event>
@@ -107,8 +104,7 @@
             <h4>Show Event</h4>
             <paper-button raised id="showEventBtn">show all events</paper-button>
             <paper-button raised id="showLastEventBtn">show last event</paper-button>
-            <div id="events">
-               </div>
+            <div id="events"></div>
             <hr>
           </div>
 
@@ -156,6 +152,7 @@
     <!-- build:js scripts/main.js -->
     <script src="scripts/main.js"></script>
     <script src="scripts/password.js"></script>
+    <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyDKnitM-_ExCjgq7jy6-u8J_-ES8IgVhkU&signed_in=true&libraries=places" async defer></script>
 
     <!-- endbuild -->
   </body>
