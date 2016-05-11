@@ -24,7 +24,7 @@
 
     <!-- event guests -->
 
-      <paper-input type="text" label="Who do you want to invite?"  auto-validate autocomplete="on" error-message="Guests?" id="guestList" value="{{thing.guests::change}}" class="thingRequired" list="browsers" name="browser" multiple></paper-input>
+      <paper-input type="text" label="Who do you want to invite?"  auto-validate autocomplete="on" error-message="Guests?" id="guestList" class="thingRequired" list="browsers" name="browser" multiple></paper-input>
 
         <datalist id="browsers">
           <option value="Friend1@cool.com">
@@ -100,14 +100,14 @@
     document.getElementById('guestList').$.input.value = "";
     document.getElementById('guestList').focus();
     guestList.push(guest);
-    showGuestNames(guestList);
+    guestString = showGuestNames(guestList);
+    this.thing.guests = guestString;
   },
 
   // when the create event button is clicked all the required fields should be filled in and
   //the user input is saved in an array
   createEventBtn: function() {
 
-    var guests = document.getElementById('guestList');
     var eventName = document.getElementById('eventName');
     var eventType = document.getElementById('input-local');
     var eventHost = document.getElementById('hostName');
@@ -124,7 +124,6 @@
         // to get the string values of the inputs
         this.thing.eventName = eventName.value;
         this.thing.hostName = eventHost.value;
-        this.thing.guests = guests.value;
         this.thing.startTime = eventStart.value;
         this.thing.endTime = eventEnd.value;
         this.thing.eventType = eventType.value;
@@ -135,6 +134,9 @@
         createEventArray.push(this.thing) //add the new event info to the array
         storeEvents(); //store the information in localStorage
         showLastEvent();
+        guestString = []; //set guest string to empty
+        removeGuests(); //delete all the names in teh invited guest list
+
 
 
       } else {
@@ -164,11 +166,18 @@
       return JSON.parse(this.getItem(key))
   };
 
+  var guestString = ""; //a string to save the guest names to be able to store them in localStorage
   function showGuestNames(guestList) {
     guestList.forEach(function(name) {
-      $("#invitedGuests").append("<li>" + name + "</li>")
+      $("#invitedGuests").append("<li>" + name + "</li>");
+      guestString += name + ", ";
     })
+    return guestString;
   };
+
+  function removeGuests() {
+     $("#invitedGuests").empty();
+  }
 
   // an event array to save the different events
   var createEventArray = [];
