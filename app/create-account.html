@@ -28,7 +28,7 @@
     <paper-input type="date" label ="birthday" value="{{account.birthday::change}}" class="date"></paper-input>
 
     <br>
-    <paper-button raised disabled on-click="createAccountBtn" id="createBtn">create account</paper-button>
+    <paper-button raised disabled on-click="createAccountBtn" id="createBtn" class="buttonSize">create account</paper-button>
     <br>
     <br>
     <p id="storageValue"></p>
@@ -76,6 +76,9 @@
     var valid = validateCreateAccount();
     if (valid) {
         this.$.storageValue.innerHTML = "Welcome " + this.$.locStore.value.firstName;
+        document.getElementById("accountName").innerHTML = this.$.locStore.value.firstName;
+        document.getElementById('hostName').$.input.value = this.$.locStore.value.firstName + " " + this.$.locStore.value.lastName;
+        document.getElementById("createEvent").style.display = "block";
       }
       else {
         this.$.storageValue.innerHTML = "Please check that you filled in all required fields";

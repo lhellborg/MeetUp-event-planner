@@ -70,10 +70,10 @@
         <p class="lead">What do you want to do?</p>
         <form>
           <label for="newAccount" >
-            <input type="radio" name="activity" value="newAccount" id="newAccount" checked class="radioBtn"> Create account
+            <input type="radio" name="activity" value="newAccount" id="newAccount" checked class="radioBtn"> New account
           </label>
           <label for="newEvent">
-            <input type="radio" name="activity" value="newEvent" id="newEvent" class="radioBtn"> Create event
+            <input type="radio" name="activity" value="newEvent" id="newEvent" class="radioBtn"> New event
           </label>
         </form>
       </div>
@@ -81,7 +81,7 @@
       <div class="row">
         <div class="col-md-6 marketing" id="createAccount">
 
-          <h4>Create account</h4>
+          <h4>Create new account</h4>
 
           <create-account></create-account>
           <hr>
@@ -92,7 +92,7 @@
 
 
           <div class="col-md-6 marketing" id="createEvent">
-            <h4>Create Event</h4>
+            <h4>Create new Event</h4>
 
             <create-event></create-event>
 
@@ -103,8 +103,8 @@
 
           <div class="col-md-6 marketing" id="showEvent">
             <h4>Show Event</h4>
-            <paper-button raised id="showEventBtn">show all events</paper-button>
-            <paper-button raised id="showLastEventBtn">show last event</paper-button>
+            <paper-button raised id="showEventBtn" class="buttonSize">All events</paper-button>
+            <paper-button raised id="showLastEventBtn" class="buttonSize">Last event</paper-button>
             <div id="events"></div>
             <hr>
           </div>

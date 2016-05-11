@@ -28,7 +28,7 @@
     <paper-input type="text" label="Additional information to the guests?" id="addInfo"></paper-input>
 
     <br>
-    <paper-button raised on-click="createEventBtn" id="createEventBtn">create event</paper-button>
+    <paper-button raised on-click="createEventBtn" id="createEventBtn" class="buttonSize">create event</paper-button>
     <br>
     <br>
     <p id="eventValue"></p>
@@ -47,7 +47,7 @@
         notify: true
       }
     },
-    // initializes default if nothing has been stored
+    // initializes default if nothing has been stored with only the name from the create account
     initializeEvent: function() {
       var fullName = document.getElementById('firstName').value + " " + document.getElementById('lastName').value;
         this.thing = {
