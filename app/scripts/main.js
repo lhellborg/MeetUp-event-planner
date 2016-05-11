@@ -39,7 +39,7 @@ $(function(){
 	// The function to show the autoselected items for the different event types
 	HTMLImports.whenReady(function(){
 		// dropdown autoselect items for event types
-		var eventType = ["Wedding", "Birthday", "Conferance talk", "Dinner", "Meeting", "Movie", "Coffe and Cake", "Brunch", "Get together", "Lunch", "Business", "Party"]
+		var eventType = ["Wedding", "Birthday", "Conferance talk", "Dinner", "Meeting", "Movie", "Funeral", "Coffe and Cake", "Brunch", "Get together", "Lunch", "Business", "Party", "Other"]
 		var inputLocal = document.querySelector('#input-local');
 		inputLocal.source = eventType;
 	});

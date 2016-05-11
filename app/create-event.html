@@ -12,7 +12,7 @@
         <!-- event name -->
     <paper-input type="text" label="What do you want to call the event?"  required auto-validate autocomplete="on" error-message="Name of the event, please"  id="eventName"  class="thingRequired"></paper-input>
     <!-- event type -->
-    <paper-autocomplete type="text" label="What kind of event? Wedding..."  required auto-validate autocomplete="on" error-message="Event type?" id="input-local" class="thingRequired"></paper-autocomplete>
+    <paper-autocomplete type="text" label="What kind of event? Wedding..." error-message="Event type?" id="input-local" class="thingRequired"></paper-autocomplete>
     <!-- event host -->
     <paper-input type="text" label="Who is hosting the event?" required auto-validate autocomplete="on" error-message="host for the event?" id="hostName" value="{{thing.hostName::change}}" class="thingRequired"></paper-input>
     <!-- event adress -->
@@ -22,7 +22,7 @@
     <!-- event end -->
     <paper-input type="datetime-local" label ="end date and time" required auto-validate error-message="When does it end?" id="end" class="thingRequired date"></paper-input>
     <!-- event guests -->
-    <paper-input type="text" label="Who do you want to invite?" required auto-validate autocomplete="on" error-message="Guests?" id="guestList" class="thingRequired"></paper-input>
+    <paper-input type="text" label="Who do you want to invite?" required auto-validate autocomplete="on" error-message="Guests?" id="guestList" value="{{thing.guests::change}}" class="thingRequired"></paper-input>
 
     <!-- event mesasge -->
     <paper-input type="text" label="Additional information to the guests?" id="addInfo"></paper-input>
@@ -63,9 +63,17 @@
     },
     // when the event is loaded
    eventLoaded: function() {
-      console.log('thing loaded; value: '+ this.thing.hostName + " " + this.thing.eventName);
       var fullName = document.getElementById('firstName').value + " " + document.getElementById('lastName').value;
-      this.thing.hostName = fullName;
+      this.thing = {
+          eventName: "",
+          eventType: "",
+          hostName: fullName,
+          startTime: "",
+          endTime: "",
+          guests: "",
+          address: "",
+          addInfo: ""
+        }
     },
 
   // when the create event button is clicked all the required fields should be filled in and
@@ -78,22 +86,27 @@
     var eventHost = document.getElementById('hostName');
     var eventStart = document.getElementById('start');
     var eventEnd = document.getElementById('end');
-    var eventAdress = document.getElementById('place');
+    var eventAdress = document.getElementById('place').$.input; //to get the adress input from google auto-fill
     var eventInfo = document.getElementById('addInfo');
 
     var valid = validateCreateEvent(); //checks that all required fields are filled in
 
     if (valid) {
-        this.$.eventValue.innerHTML = this.$.eventStore.value.eventName + " has been created";
+        this.$.eventValue.innerHTML = eventName.value + " has been created";
 
         // to get the string values of the inputs
+        this.thing.eventName = eventName.value;
+        this.thing.hostName = eventHost.value;
+        this.thing.guests = guests.value;
         this.thing.startTime = eventStart.value;
         this.thing.endTime = eventEnd.value;
         this.thing.eventType = eventType.value;
         this.thing.address = eventAdress.value;
+        this.thing.addInfo = eventInfo.value;
 
         createEventArray.push(this.thing) //add event info to the array
         storeEvents(); //store the information in localStorage
+        showLastEvent();
 
 
       } else {
@@ -101,7 +114,7 @@
       }
     }
 
-  });
+  }); //end polymer
 
 
   function validateCreateEvent() {

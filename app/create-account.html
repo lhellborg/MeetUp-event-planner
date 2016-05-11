@@ -65,6 +65,9 @@
         document.getElementById("accountName").innerHTML = "Mate";
       } else {
         document.getElementById("accountName").innerHTML = this.$.locStore.value.firstName;
+        document.getElementById("createAccount").style.display = "none";
+        document.getElementById("newEvent").setAttribute("checked", "checked");
+        showEventFunction();
       }
   },
 
