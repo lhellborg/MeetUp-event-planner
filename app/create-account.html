@@ -64,32 +64,35 @@
       if (this.$.locStore.value.firstName === "") {
         document.getElementById("accountName").innerHTML = "Mate";
       } else {
-        document.getElementById("accountName").innerHTML = this.$.locStore.value.firstName;
-        document.getElementById("createAccount").style.display = "none";
-        document.getElementById("newEvent").setAttribute("checked", "checked");
-        showEventFunction();
-        document.getElementById("eventName").focus();
+        document.getElementById("accountName").innerHTML = this.$.locStore.value.firstName; //greeting box shows the saved name
+        document.getElementById("createAccount").style.display = "none"; //since account already created this is not displayed anymored
+        document.getElementById("createEvent").style.display = "block"; //the create account is displayed
+        document.getElementById("showEvent").style.display = "block"; //the create account is displayed
+        document.getElementById("newEvent").setAttribute("checked", "checked"); // the readio button "New event" is checked
+        showEventFunction(); //shows the event if there are any saved
+        document.getElementById("eventName").focus(); //the first input will be focused for faster start to input
       }
   },
 
   // when the create account button is clicked all the required fields should be filled in
   createAccountBtn: function() {
-    var valid = validateCreateAccount();
+    var valid = validateCreateAccount(); //check all the required fields
     if (valid) {
-        this.$.storageValue.innerHTML = "Welcome " + this.$.locStore.value.firstName;
-        document.getElementById("accountName").innerHTML = this.$.locStore.value.firstName;
-        document.getElementById('hostName').value = this.$.locStore.value.firstName + " " + this.$.locStore.value.lastName;
-        document.getElementById("createEvent").style.display = "block";
+        this.$.storageValue.innerHTML = "Welcome " + this.$.locStore.value.firstName; //the greeting message says welcome "your name"
+        document.getElementById("accountName").innerHTML = this.$.locStore.value.firstName; //sets the value in the jumbotron box to greet your name
+        document.getElementById("createEvent").style.display = "block"; //the create event form is displayed
+        document.getElementById('hostName').value = this.$.locStore.value.firstName + " " + this.$.locStore.value.lastName; //sets the value of the host name in the create event to your account name
         document.getElementById("eventName").focus();
       }
       else {
-        this.$.storageValue.innerHTML = "Please check that you filled in all required fields";
+        this.$.storageValue.innerHTML = "Please check that you filled in all required fields"; //when some required fields are missing
       }
   }
 
 
   });
 
+    // Since a required field that has never been "touched" will not show any error message, each input that is required has a class "accountRequired" that can be checked to see that the value is not empty.
   function validateCreateAccount() {
     var isValid = true;
     $('.accountRequired').each(function() {

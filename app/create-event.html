@@ -154,6 +154,7 @@
         createEventArray = []; //empty the array
         createEventArray.push(this.thing) //add the new event info to the array
         storeEvents(); //store the information in localStorage
+        document.getElementById("showEvent").style.display = "block";//show the event form
         showLastEvent();
         guestString = ""; //set guest string to empty
         removeGuests(); //delete all the names in the invited guest list
@@ -257,9 +258,9 @@
 
     if (events != null) {
       events.forEach(function(ev) {
-        $("#events").append('<div class="event-entry"><h5 class="showEventName">' + ev.eventName + "</h5>" +
-        '<div class="showDetails"><p>' + ev.hostName + " invited " + ev.guests + " to " + ev.eventType + "." + "</p>" +
-              '<p> ' + "Starting: " + ev.startTime + " and ending: " + ev.endTime + "." + "</p>" +
+        $("#events").append('<div class="event-entry"><h4 class="showEventName">' + ev.eventName + "</h4>" +
+        '<div class="showDetails"><p><span>' + ev.hostName + " </span> invited " + ev.guests + " to " + ev.eventType + "." + "</p>" +
+              '<p> ' + "Starting: " + ev.startTime + " <br> Ending: " + ev.endTime + "." + "</p>" +
               '<p>' + " Address: " + ev.address + "." + "</p>" +
               '<p>' + ev.addInfo + "</p></div></div>");
       }) //end forEach
@@ -275,9 +276,9 @@
     var ev = localStorage.getObj("events");
 
     if (ev != null) {
-      $("#events").append('<div class="event-entry"><h5 class="showEventName">' + ev[0].eventName + "</h5>" +
-      '<div><p>' + ev[0].hostName + " invited " + ev[0].guests + " to " + ev[0].eventType + "." + "</p>" +
-      '<p> ' + "Starting: " + ev[0].startTime + " and ending: " + ev[0].endTime + "." + "</p>" +
+      $("#events").append('<div class="event-entry"><h4 class="showEventName">' + ev[0].eventName + "</h4>" +
+      '<div><p><span>' + ev[0].hostName + " </span> invited " + ev[0].guests + " to " + ev[0].eventType + "." + "</p>" +
+      '<p> ' + "Starting: " + ev[0].startTime + " <br> Ending: " + ev[0].endTime + "." + "</p>" +
       '<p>' + " Address: " + ev[0].address + "." + "</p>" +
       '<p>' + ev[0].addInfo + "</p></div></div>");
     } else {

@@ -35,15 +35,13 @@ $(function(){
 		$(this).toggleClass("open");
 	});
 
+	//sets the end time to the start time when the start time has been entered
+	$("#start").keyup(function() {
+		var stt = document.getElementById('start').$.input.value;
+		document.getElementById('end').$.input.value = stt;
 
+	});
 
-	// // The function to show the autoselected items for the different event types
-	// HTMLImports.whenReady(function(){
-	// 	// dropdown autoselect items for event types
-	// 	var eventType = ["Wedding", "Birthday", "Conferance talk", "Dinner", "Meeting", "Movie", "Funeral", "Coffe and Cake", "Brunch", "Get together", "Lunch", "Business", "Party", "Other"]
-	// 	var inputLocal = document.querySelector('#input-local');
-	// 	inputLocal.source = eventType;
-	// });
 
 
 	// to help fill out the adress field

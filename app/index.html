@@ -8,12 +8,7 @@
 
       <!-- build from yeoman web apps template-->
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <!-- Place favicon.ico in the root directory -->
 
-    <!-- build:css styles/vendor.css -->
-    <!-- bower:css -->
-    <!-- endbower -->
-    <!-- endbuild -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
 
      <!-- Using Polymer: Load webcomponents-lite.min.js for polyfill support. -->
@@ -59,12 +54,13 @@
   <body>
 
     <div class="container">
+
       <div class="header">
         <h3 class="text-muted">Meet-Up Event Planner</h3>
       </div>
 
 
-
+      <!-- Greeting box -->
       <div class="jumbotron">
         <h2>Hi <span id="accountName"></span></h2>
         <p class="lead">What do you want to do?</p>
@@ -76,64 +72,43 @@
             <input type="radio" name="activity" value="newEvent" id="newEvent" class="radioBtn"> New event
           </label>
         </form>
-      </div>
+      </div>  <!--end jumbotron-->
 
       <div class="row">
-        <div class="col-md-6 marketing" id="createAccount">
 
+        <!-- Create new account column -->
+        <div class="col-md-6 col-md-offset-3 marketing" id="createAccount">
           <h4>Create new account</h4>
-
           <create-account></create-account>
           <hr>
         </div> <!--end col-lg-6 -->
 
+        <!-- Create new event column -->
+        <div class="col-md-6 col-md-offset-3 marketing" id="createEvent" style="display:none">
+          <h4>Create new Event</h4>
+          <create-event></create-event>
+          <hr>
+        </div>
 
-
-
-
-          <div class="col-md-6 marketing" id="createEvent">
-            <h4>Create new Event</h4>
-
-            <create-event></create-event>
-
-            <hr>
-          </div>
-
-
-
-          <div class="col-md-6 marketing" id="showEvent">
-            <h4>Show Event</h4>
-            <paper-button raised id="showEventBtn" class="buttonSize">All events</paper-button>
-            <paper-button raised id="showLastEventBtn" class="buttonSize">Last event</paper-button>
-            <div id="events"></div>
-            <hr>
-          </div>
+        <!-- Show events column -->
+        <div class="col-md-6 col-md-offset-3 marketing" id="showEvent" style="display:none">
+          <h4>Show Event</h4>
+          <paper-button raised id="showEventBtn" class="buttonSize">All events</paper-button>
+          <paper-button raised id="showLastEventBtn" class="buttonSize">Last event</paper-button>
+          <div id="events"></div>
+          <hr>
+        </div>
 
 
       </div>  <!--end row-->
-    </div>
+
+    </div> <!--end container-->
 
 
-
+      <!-- Nice footer to get the users happy -->
       <div class="footer">
-        <p> ♥</p>
+        <p class= "glyphicon glyphicon glyphicon-heart"></p>
       </div>
-
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-     <script>
-    //   (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-    //   function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-    //   e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-    //   e.src='https://www.google-analytics.com/analytics.js';
-    //   r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-    //   ga('create','UA-XXXXX-X');ga('send','pageview');
-    // </script>
-
-    <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
-    <!-- endbower -->
-    <!-- endbuild -->
 
     <!-- build:js scripts/plugins.js -->
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
@@ -150,9 +125,11 @@
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
     <!-- endbuild -->
 
-    <!-- build:js scripts/main.js -->
+    <!-- build:js scripts/main.js  etc-->
     <script src="scripts/main.js"></script>
     <script src="scripts/password.js"></script>
+
+    <!-- google maps api -->
     <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyDKnitM-_ExCjgq7jy6-u8J_-ES8IgVhkU&signed_in=true&libraries=places" async defer></script>
 
     <!-- endbuild -->
