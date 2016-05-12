@@ -35,14 +35,13 @@ The events can be shown either jsut the last one iwth all teh information or all
 ## How to download and build
 The files in the `dist` folder are minified and ready to use.
 
-From the `src` code
-- download `package.json`, `gulpfile.js` and the `src` folder and put in a _directory_ of your choice on your computer
-- direct yourself to _the directory_ that you choosed in the terminal and run `npm install`. This will create a file `node-modules` in your directory with the files you need to run `gulp`.
+From the `app` code:
+- download `package.json`, `gulpfile.babel.js`, `bower.json` and the `app` folder and put in a _directory_ of your choice on your computer
+- direct yourself to _the directory_ that you choosed in the terminal and run `npm install`. This will create a file `node-modules` and `bower_components`in your directory with the files you need to run `gulp`.
 - run `gulp`, which will _minify_ all of the **css and js** files and put them in a directory called `dist` in the correct folders. It will also copy all the other files to their correct destinations.
 - open `index.html` from the `dist` file in your favorite browser
 
-###Gulpfile.js
-The gulpfile.js also contains jshint, which has been used for validateing the js files and jsbeautifier which will prettify the feedreader.js test file. The .js files (that are not in a lib directory) have been concatenated and minified into a `all.min.js` file in the `js/` folder
+
 
 
 
