@@ -35,6 +35,8 @@
     <paper-input id="place" label="Address" error-message="Where is it?" required auto-validate autocomplete="on" error-message="Where is it?" class="thingRequired"></paper-input>
     <!-- event start -->
     <paper-input type="datetime-local" label ="start date and time" required auto-validate error-message="When does it start?" id="start" class="thingRequired date"></paper-input>
+    <!-- warning if start time is after end time -->
+    <div id="checkStartEndTime" style="color:red"></div>
     <!-- event end -->
     <paper-input type="datetime-local" label ="end date and time" required auto-validate error-message="When does it end?" id="end" class="thingRequired date"></paper-input>
 
@@ -173,11 +175,29 @@
   function validateCreateEvent() {
     var isValid = true;
     $('.thingRequired').each(function() {
-      if ( $(this).val() === "")
+      if ( $(this).val() === "") {
           isValid = false;
+          return isValid;
+      };
     });
+    if (guestString === "") {
+      isValid = false;
+      checkGuest();
+      return isValid;
+    };
+    var start = document.getElementById('start').value;
+    var end = document.getElementById('end').value;
+    if (start > end) {
+      isValid = false;
+      checkTime();
+      return isValid;
+    };
     return isValid;
   };
+
+  function checkTime() {
+    $("#checkStartEndTime").text("Please, check your starting and end time.");
+  }
 
 
   var guestString = ""; //a string to save the guest names to be able to store them in localStorage
@@ -274,6 +294,7 @@
       document.getElementById('end').$.input.value = "";
       document.getElementById('place').$.input.value = ""; //to get the adress input from google auto-fill
       document.getElementById('addInfo').$.input.value = "";
+      document.getElementById('checkStartEndTime').innerHTML = "";
     };
 
 
