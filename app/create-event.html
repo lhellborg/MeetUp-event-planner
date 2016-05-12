@@ -12,7 +12,23 @@
         <!-- event name -->
     <paper-input type="text" label="What do you want to call the event?"  required auto-validate autocomplete="on" error-message="Name of the event, please"  id="eventName"  class="thingRequired"></paper-input>
     <!-- event type -->
-    <paper-autocomplete type="text" label="What kind of event? Wedding..." error-message="Event type?" id="input-local" class="thingRequired"></paper-autocomplete>
+    <paper-input type="text" label="What kind of event? Wedding..." required auto-validate autocomplete="on" error-message="Event type?"  id="input-local" class="thingRequired" list="eventTypes" name="eventTypes" multiple></paper-input>
+    <datalist id="eventTypes">
+      <option value="Wedding">
+      <option value="Birthday">
+      <option value="Conferance talk">
+      <option value="Dinner">
+      <option value="Meeting">
+      <option value="Movie">
+      <option value="Funeral">
+      <option value="Coffe and Cake">
+      <option value="Brunch">
+      <option value="Get together">
+      <option value="Lunch">
+      <option value="Movie">
+      <option value="Business">
+      <option value="Party">
+    </datalist>
     <!-- event host -->
     <paper-input type="text" label="Who is hosting the event?" required auto-validate autocomplete="on" error-message="host for the event?" id="hostName" value="{{thing.hostName::change}}" class="thingRequired"></paper-input>
     <!-- event adress -->
@@ -24,9 +40,9 @@
 
     <!-- event guests -->
 
-      <paper-input type="text" label="Who do you want to invite?"  auto-validate autocomplete="on" error-message="Guests?" id="guestList" class="thingRequired" list="browsers" name="browser" multiple></paper-input>
+      <paper-input type="text" label="Who do you want to invite?"  required auto-validate autocomplete="on" error-message="Guests?" id="guestList" class="thingRequired" list="guests" name="guests" multiple></paper-input>
 
-        <datalist id="browsers">
+        <datalist id="guests">
           <option value="Friend1@cool.com">
           <option value="Friend2@cool.com">
           <option value="Friend3@cool.com">
@@ -95,13 +111,16 @@
 
   //when the add button is clicked the guest should be added in the guest array
   addGuests: function() {
-    var guestList = []; // an array to save the guest names in
-    var guest = document.getElementById('guestList').$.input.value;
-    document.getElementById('guestList').$.input.value = "";
-    document.getElementById('guestList').focus();
-    guestList.push(guest);
-    guestString = showGuestNames(guestList);
+    var guestField = document.getElementById('guestList');
+    // var guestList = []; // an array to save the guest names in
+    var guest = guestField.$.input.value;
+    guestField.$.input.value = "";
+    guestField.focus();
+    // guestList.push(guest);
+    guestString = showGuestNames(guest);
     this.thing.guests = guestString;
+    guestField.removeAttribute("required"); //remove the required attribute to guest list since we add the guest in a list and removed it from the guest list field
+    checkGuest(); //set the color of the invited guest back to black if it is red
   },
 
   // when the create event button is clicked all the required fields should be filled in and
@@ -134,13 +153,17 @@
         createEventArray.push(this.thing) //add the new event info to the array
         storeEvents(); //store the information in localStorage
         showLastEvent();
-        guestString = []; //set guest string to empty
-        removeGuests(); //delete all the names in teh invited guest list
+        guestString = ""; //set guest string to empty
+        removeGuests(); //delete all the names in the invited guest list
+        this.thing.guests = ""; //to remove the stored value of guests
+        document.getElementById('guestList').setAttribute("required", ""); //add the required attibute to guestList
+        resetFields(); //set the values of the fields back to empty
 
 
 
       } else {
         this.$.eventValue.innerHTML = "Please check that you filled in all required fields";
+        checkGuest();
       }
     }
 
@@ -150,13 +173,36 @@
   function validateCreateEvent() {
     var isValid = true;
     $('.thingRequired').each(function() {
-      if ( $(this).val() === '' )
+      if ( $(this).val() === "")
           isValid = false;
     });
     return isValid;
   };
 
-   // localStorage can only handle strings with thess two new prototypes we can use it for objects and arrays as well
+
+  var guestString = ""; //a string to save the guest names to be able to store them in localStorage
+  function showGuestNames(guest) {
+    $("#invitedGuests").append("<li>" + guest + "</li>");
+    guestString += guest + ", ";
+    return guestString;
+  };
+
+
+  //remove all elements in the guest list
+  function removeGuests() {
+     $("#invitedGuests").children().remove();
+  }
+
+  //if guest String is empty put the text "invited Guest" to red to show that we need guests and add the required attibute
+  function checkGuest() {
+    if (guestString === "") {
+      $("#invitedGuests").css('color' , 'red');
+    } else {
+      $("#invitedGuests").css('color' , 'black');
+    }
+  }
+
+  // localStorage can only handle strings with thess two new prototypes we can use it for objects and arrays as well
   // Use localStorage.setObj(key, value) to save an array or object and localStorage.getObj(key) to retrieve it.
   Storage.prototype.setObj = function(key, obj) { //
     return this.setItem(key, JSON.stringify(obj))
@@ -165,19 +211,6 @@
   Storage.prototype.getObj = function(key) {
       return JSON.parse(this.getItem(key))
   };
-
-  var guestString = ""; //a string to save the guest names to be able to store them in localStorage
-  function showGuestNames(guestList) {
-    guestList.forEach(function(name) {
-      $("#invitedGuests").append("<li>" + name + "</li>");
-      guestString += name + ", ";
-    })
-    return guestString;
-  };
-
-  function removeGuests() {
-     $("#invitedGuests").empty();
-  }
 
   // an event array to save the different events
   var createEventArray = [];
@@ -231,6 +264,17 @@
       $("#events").append('<div><h5>' + "There are no saved events to show" + "</h5>");
     }
   }; //end showLastEvent
+
+      // when the event is loaded
+  function resetFields() {
+
+      document.getElementById('eventName').value = ""; //sets the eventName field in a required state which prevent the user from double click on the creaate button and thereby createing the same event twice
+      document.getElementById('input-local').$.input.value = "";
+      document.getElementById('start').$.input.value = "";
+      document.getElementById('end').$.input.value = "";
+      document.getElementById('place').$.input.value = ""; //to get the adress input from google auto-fill
+      document.getElementById('addInfo').$.input.value = "";
+    };
 
 
 </script>

@@ -68,6 +68,7 @@
         document.getElementById("createAccount").style.display = "none";
         document.getElementById("newEvent").setAttribute("checked", "checked");
         showEventFunction();
+        document.getElementById("eventName").focus();
       }
   },
 
@@ -77,8 +78,9 @@
     if (valid) {
         this.$.storageValue.innerHTML = "Welcome " + this.$.locStore.value.firstName;
         document.getElementById("accountName").innerHTML = this.$.locStore.value.firstName;
-        document.getElementById('hostName').$.input.value = this.$.locStore.value.firstName + " " + this.$.locStore.value.lastName;
+        document.getElementById('hostName').value = this.$.locStore.value.firstName + " " + this.$.locStore.value.lastName;
         document.getElementById("createEvent").style.display = "block";
+        document.getElementById("eventName").focus();
       }
       else {
         this.$.storageValue.innerHTML = "Please check that you filled in all required fields";
@@ -92,7 +94,6 @@
     var isValid = true;
     $('.accountRequired').each(function() {
       if ( $(this).val() === '' ) {
-          console.log("not valid");
           isValid = false;
       }
     });
