@@ -114,13 +114,11 @@
   //when the add button is clicked the guest should be added in the guest array
   addGuests: function() {
     var guestField = document.getElementById('guestList');
-    // var guestList = []; // an array to save the guest names in
     var guest = guestField.$.input.value;
-    guestField.$.input.value = "";
+    guestField.$.input.value = ""; //empty the input field
     guestField.focus();
-    // guestList.push(guest);
     guestString = showGuestNames(guest);
-    this.thing.guests = guestString;
+    this.thing.guests = guestString; //copy the guest name to guestString
     guestField.removeAttribute("required"); //remove the required attribute to guest list since we add the guest in a list and removed it from the guest list field
     checkGuest(); //set the color of the invited guest back to black if it is red
   },
@@ -196,16 +194,17 @@
     return isValid;
   };
 
-  function checkTime() {
-    $("#checkStartEndTime").text("Please, check your starting and end time.");
-  }
 
 
   var guestString = ""; //a string to save the guest names to be able to store them in localStorage
   function showGuestNames(guest) {
-    $("#invitedGuests").append("<li>" + guest + "</li>");
-    guestString += guest + ", ";
-    return guestString;
+    if (guest != "") { //guest can not be empty
+      $("#invitedGuests").append("<li>" + guest + "</li>");
+      guestString += guest + ", ";
+      return guestString;
+    } else {
+      alert("Please add a guest name");
+    }
   };
 
 

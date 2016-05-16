@@ -7,6 +7,9 @@ $(function() {
             $('#createEvent').hide();
             $('#showEvent').hide();
             $('#newAccount').attr('checked');
+            //document.getElementById('firstName').$.input.focus();
+            //$("input:text:visible:first").focus();
+            $("#firstName").focus();
         });
 
         $('#newEvent').click(function() {
@@ -14,7 +17,9 @@ $(function() {
             $('#createAccount').hide();
             $('#showEvent').show();
             $('#newEvent').attr('checked');
-
+            //document.getElementById('eventName').$.input.focus();
+            //$("input:text:visible:first").focus();
+            $("#eventName").focus();
         });
 
 
@@ -38,8 +43,29 @@ $(function() {
         $("#start").keyup(function() {
             var stt = document.getElementById('start').$.input.value;
             document.getElementById('end').$.input.value = stt;
-
+            checkTime();
         });
+
+                //sets the end time to the start time when the start time has been entered
+        $("#end").keyup(function() {
+            var stt = document.getElementById('start').$.input.value;
+            //validates that the end time is after the start time
+            var end = document.getElementById('end').$.input.value;
+            if (stt > end) {
+                checkTime();
+            } else {
+                $("#checkStartEndTime").text("");
+            };
+        });
+
+        //adds an error message
+        function checkTime() {
+            $("#checkStartEndTime").text("Please, check your starting and end time.");
+        };
+
+
+
+
 
 
 
