@@ -23,7 +23,7 @@ The address field is autofilled from google maps API for autocomplete-addressfor
 The start and end date is chosen from a calender. When the start time has been entered it automtically fills the end time with the same value. 
 ####Invited guests
 The guest list can be filled out with any name although there are some predefined friends. To add all the guests to the event they need to be added one at a time by clicking on the `ADD GUEST` button.
-###Create event
+####Create event
 By clicking on the `CREATE EVENT` button all the required fields are checked for input information and that the start time is before the end time. If valid there will be a message saying that the event has been created and the event will be stored in localStorage and shown below the event form. The form will be reset and ready to use again.
 
 If not all the fields are correct there will a message urging the user to check hte input fields and depending on the error, there will be some red text appearing in the form helping the user figure out what is wrong.
@@ -33,13 +33,11 @@ The events can be shown either jsut the last one iwth all teh information or all
 
 
 ## How to download and build
-The files in the `dist` folder are minified and ready to use.
-
 From the `app` code:
 - download `package.json`, `gulpfile.babel.js`, `bower.json` and the `app` folder and put in a _directory_ of your choice on your computer
 - direct yourself to _the directory_ that you choosed in the terminal and run `npm install`. This will create a file `node-modules` and `bower_components`in your directory with the files you need to run `gulp`.
 - run `gulp`, which will _minify_ all of the **css and js** files and put them in a directory called `dist` in the correct folders. It will also copy all the other files to their correct destinations.
-- open `index.html` from the `dist` file in your favorite browser
+- run `gulp serve` to run from the `app` directory or `gulp serve:dist` to run from the compressed and minified dist directory. This will run the Event Planner on localhost port 9000. 
 
 
 
