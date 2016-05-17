@@ -19,13 +19,13 @@
     <validation-element></validation-element>
 
     <!-- email input -->
-    <gold-email-input type="email" required="" auto-validate="" value="{{account.email::change}}" error-message="Please enter a valid email" label="Your email adress, please" tabindex="0" aria-disabled="false" class="accountRequired">
+    <gold-email-input type="email" required="" auto-validate="" value="{{account.email::change}}" error-message="Please enter a valid email" label="Your email adress, please" tabindex="0" aria-disabled="false" class="accountRequired" id="email">
     </gold-email-input>
 
     <!-- optional input -->
     <h6>Optional fields</h6>
-    <paper-input type="text" label ="job-title" value="{{account.jobTitle::change}}"></paper-input>
-    <paper-input type="date" label ="birthday" value="{{account.birthday::change}}" class="date"></paper-input>
+    <paper-input type="text" label ="job-title" value="{{account.jobTitle::change}}" id="jobTitle"></paper-input>
+    <paper-input type="date" label ="birthday" value="{{account.birthday::change}}" class="date" id="birthday"></paper-input>
 
     <br>
     <paper-button raised disabled on-click="createAccountBtn" id="createBtn" class="buttonSize">create account</paper-button>
@@ -68,7 +68,6 @@
         document.getElementById("createAccount").style.display = "none"; //since account already created this is not displayed anymored
         document.getElementById("createEvent").style.display = "block"; //the create account is displayed
         document.getElementById("showEvent").style.display = "block"; //the create account is displayed
-        document.getElementById("newEvent").setAttribute("checked", "checked"); // the readio button "New event" is checked
         showEventFunction(); //shows the event if there are any saved
         document.getElementById("eventName").focus(); //the first input will be focused for faster start to input
       }

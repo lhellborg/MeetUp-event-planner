@@ -1,26 +1,31 @@
 $(function() {
     $(window).load(function() {
 
-        // show and hide different sections depending on user input
-        $('#newAccount').click(function() {
-            $('#createAccount').show();
-            $('#createEvent').hide();
-            $('#showEvent').hide();
-            $('#newAccount').attr('checked');
-            //document.getElementById('firstName').$.input.focus();
-            //$("input:text:visible:first").focus();
-            $("#firstName").focus();
-        });
 
-        $('#newEvent').click(function() {
-            $('#createEvent').show();
-            $('#createAccount').hide();
-            $('#showEvent').show();
-            $('#newEvent').attr('checked');
-            //document.getElementById('eventName').$.input.focus();
-            //$("input:text:visible:first").focus();
-            $("#eventName").focus();
-        });
+        // show and hide different sections depending on user input
+        // $('#newAccount').click(function() {
+        //     $('#createAccount').show();
+        //     $('#createEvent').hide();
+        //     $('#showEvent').hide();
+        //     $('#newAccount').attr('checked');
+
+        //     //document.getElementById('firstName').setAttribute('focused', '');
+        //     //$("paper-input:text:visible:first").focus();
+        //      //$("#firstName").attr('focused');
+        //      //document.getElementById("firstName").$.input.focus(); //the first input will be focused for faster start to input'
+        //       $('paper-input input').first().focus();
+        // });
+
+        // $('#newEvent').click(function() {
+        //     $('#createEvent').show();
+        //     $('#createAccount').hide();
+        //     $('#showEvent').show();
+        //     $('#newEvent').attr('checked');
+        //     //document.getElementById('eventName').$.input.focus();
+        //     //$("input:text:visible:first").focus();
+        //     $("#eventName").attr('focused');
+        //     document.getElementById("eventName").focus(); //the first input will be focused for faster start to input
+        // });
 
 
         // when the "show all event" button is clicked all the events should show up

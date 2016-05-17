@@ -40,6 +40,7 @@
      <link rel="import" href="validation-element.html">
      <link rel="import" href="create-account.html">
      <link rel="import" href="create-event.html">
+     <link rel="import" href="todo-button.html">
 
 
 
@@ -64,14 +65,9 @@
       <div class="jumbotron">
         <h2>Hi <span id="accountName"></span></h2>
         <p class="lead">What do you want to do?</p>
-        <form>
-          <label for="newAccount" >
-            <input type="radio" name="activity" value="newAccount" id="newAccount" checked class="radioBtn"> New account
-          </label>
-          <label for="newEvent">
-            <input type="radio" name="activity" value="newEvent" id="newEvent" class="radioBtn"> New event
-          </label>
-        </form>
+
+        <todo-buttons></todo-buttons>
+
       </div>  <!--end jumbotron-->
 
       <div class="row">

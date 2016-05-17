@@ -1,0 +1,52 @@
+    <!--template for account iron-localstorage-->
+<dom-module id="todo-buttons">
+  <template>
+
+    <paper-button raised on-click="accountBtn" id="accountBtn" class="buttonSize todoBtn">New account</paper-button>
+    <paper-button raised on-click="eventBtn" id="eventBtn" class="buttonSize todoBtn">New Event</paper-button>
+
+
+
+  </template>
+</dom-module>
+
+<script type="text/javascript">
+
+      // a polymer script for todo buttons
+  Polymer({
+    is: 'todo-buttons',
+    properties: {
+      account: {
+        type: Object,
+        notify: true
+      }
+    },
+
+    // when the account is loaded
+   accountBtn: function() {
+
+      document.getElementById("accountName").innerHTML = "Mate"; //sets the name in the jumbotron to "Mate"
+      document.getElementById("createAccount").style.display = "block"; //the create account is displayed
+      document.getElementById("createEvent").style.display = "none"; //the create event is hidden
+      document.getElementById("showEvent").style.display = "none"; //the show event is hidden
+
+      document.getElementById("firstName").value = ""; //sets the first name to empty string
+      document.getElementById("lastName").value = ""; //sets the last name to empty string
+      document.getElementById("email").value = ""; //sets the email to empty string
+      document.getElementById("jobTitle").value = ""; //sets the first name to empty string
+      document.getElementById("birthday").value = ""; //sets the first name to empty string
+
+      document.getElementById("firstName").$.input.focus(); //the first input will be focused for faster start to input
+
+  },
+
+  eventBtn: function() {
+      document.getElementById("createAccount").style.display = "none"; //the create account is hidden
+      document.getElementById("createEvent").style.display = "block"; //the create event is shown
+      document.getElementById("showEvent").style.display = "block"; //the show event is shown
+      document.getElementById("eventName").$.input.focus();
+      }
+
+  });
+
+</script>
